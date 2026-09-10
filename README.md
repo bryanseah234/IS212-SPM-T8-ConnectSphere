@@ -34,10 +34,10 @@ setup after cloning, moving the repository, or changing the tooling dependencies
 ## Read the guides
 
 - [Full repository setup and engineering guide](docs/repository-setup.md): the
-  rationale, conventions, review bots, tests, CI/CD, security, and staged rollout.
+  rationale, conventions, teammate reviews, tests, CI/CD, security, and staged rollout.
 - [Contributing](CONTRIBUTING.md): everyday commands and the PR workflow.
 - [GitHub owner setup](docs/github-owner-setup.md): activate the merge protections
-  and optional review bot that cannot be enabled by a write-only collaborator.
+  that cannot be enabled by a write-only collaborator.
 - [Architecture boundary](docs/architecture.md) and
   [initial decision record](docs/decisions/0001-repository-foundation.md).
 
@@ -50,8 +50,8 @@ GitHub Actions and the repository tooling.
 
 **There is no application to run yet.** Frontend/backend linting, type checking,
 application tests, builds, and deployment are not configured. A green repository
-check does not claim those have passed. CodeRabbit configuration is prepared;
-its GitHub App must be installed before automated reviews are active.
+check does not claim those have passed. Code review is handled by teammates;
+no AI reviewer or paid review subscription is part of this setup.
 
 ## Layout
 

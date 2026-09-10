@@ -12,7 +12,7 @@ the agreed layout.
 ## Decision
 
 Use short-lived branches from `main`, Conventional Commits and PR titles, squash
-merging, one human reviewer, advisory AI review, and independently enforced CI.
+merging, one human reviewer, and independently enforced CI.
 Use one pre-commit hook manager, with Python 3.12+ for cross-platform tooling only.
 Preserve inherited personal hooks. Bootstrap directly onto the initially empty
 `main`, then have an administrator enable the proposed protection.
@@ -21,9 +21,9 @@ Track the frontend/backend boundaries without generating placeholder apps or
 claiming nonexistent application tests pass. Configure repository hygiene and
 tooling tests now; introduce real application checks with the selected stack.
 
-Prepare CodeRabbit configuration as the suggested hosted reviewer. Activation
-requires the owner's GitHub App installation and a team decision about access and
-cost. Do not provision AWS merely to reproduce an internship review setup.
+The team clarified on 2026-09-10 that it does not want AI review or paid review
+subscriptions. Use teammate reviews and automated checks. Dependency update
+automation remains separate from code review.
 
 ## Alternatives and tradeoffs
 
@@ -40,4 +40,4 @@ cost. Do not provision AWS merely to reproduce an internship review setup.
 
 The baseline is immediately useful and portable. A green check proves repository
 hygiene and tooling behaviour, not application functionality or deployment health.
-GitHub protections and reviewer activation are separate from committed files.
+GitHub protections require administrator activation separately from committed files.

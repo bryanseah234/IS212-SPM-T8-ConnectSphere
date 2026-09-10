@@ -60,8 +60,8 @@ are accepted in CI only for PRs actually authored by Dependabot's bot account.
    once those exist. Add regression tests for meaningful bug fixes.
 3. Open a draft PR into `main`, using the template. CI runs on drafts too.
 4. Resolve failing checks and inspect the diff. Mark ready for human review.
-5. Have another teammate review the behaviour and test evidence. AI reviews, if
-   enabled, are advisory; answer significant findings or fix them.
+5. Have another teammate review the behaviour and test evidence. Answer significant
+   findings or fix them. No AI review service is used.
 6. Squash merge after CI and one human approval, then delete the feature branch.
 
 Proposed required checks are `repository-checks` and `pr-conventions`.

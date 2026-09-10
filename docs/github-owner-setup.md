@@ -57,18 +57,15 @@ Confirm an otherwise green PR still needs another person's approval. After appro
 push another change and verify the prior approval is dismissed. This is a manual
 acceptance exercise; the bootstrap does not claim it was completed remotely.
 
-## Enable the optional AI reviewer
+## Reviews and dependency updates
 
-The proposed service is CodeRabbit. First confirm team access, course policy, and
-any plan/billing implications. An owner installs the
-[CodeRabbit GitHub App](https://github.com/apps/coderabbitai) for this repository
-only and enables reviews. The checked-in `.coderabbit.yaml` configures advisory
-reviews on non-draft PRs; it does not install the App or buy a subscription.
+Teammates review pull requests, supported by the automated CI checks. The team has
+chosen not to use AI review services or pay for review subscriptions. There is no
+reviewer App to install.
 
-Verify on a ready-for-review PR that a review appears. Do not add the AI review as
-a required status check. Keep human review and CI as the merge requirements.
-Dependabot is a separate dependency-update bot and is configured by its checked-in
-file. No AWS or other deployment account is required for the repository foundation.
+Dependabot remains configured to propose dependency updates. It is separate from
+code review and does not use an AI reviewer. No AWS or other deployment account is
+required for the repository foundation.
 
 ## After selecting the stack
 

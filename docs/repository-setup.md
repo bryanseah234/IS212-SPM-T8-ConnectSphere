@@ -9,8 +9,8 @@ foundation is useful independently of those decisions.
 
 ## 1. What we adopted from the reference approach
 
-The reference workflow separates local checks, pull-request CI, advisory AI review,
-and human approval. It documents branch and commit conventions, installs hooks
+The reference approach documents local checks, pull-request CI, and human approval.
+It documents branch and commit conventions, installs hooks
 through one setup command, and keeps verification evidence in PRs.
 
 We adopted those principles. Its Python application tools and AWS deployment
@@ -29,7 +29,7 @@ be selected when our team knows its requirements.
 | Dependency update bot | Dependabot configured for Actions and tooling |
 | Human review routing | Shared CODEOWNERS configured |
 | Required approvals, required checks, squash-only merging | Prepared; owner must activate |
-| AI reviewer | CodeRabbit settings prepared; App installation still required |
+| Code review | Teammate reviews; no AI reviewer or paid review subscription |
 | Frontend/backend languages and frameworks | Undecided |
 | Application lint, types, unit/integration/E2E tests, builds | Add with real application code |
 | Hosting, staging, production/demo delivery, rollback | Plan below; not deployed |
@@ -172,7 +172,7 @@ false positives narrowly; do not broadly exclude application directories or
 baseline an actual credential. Rotate any exposed credential before addressing
 its presence in history.
 
-## 7. Issues, PRs, ownership, and reviewer bots
+## 7. Issues, PRs, ownership, and teammate reviews
 
 Create tasks with observable acceptance criteria. Keep one logical change per PR.
 The PR description explains what changed and why, links the task, lists actual
@@ -190,19 +190,13 @@ after new changes invalidate the earlier review. It also blocks force pushes and
 branch deletion, including for administrators. These settings require GitHub
 administrator access; files alone cannot enforce them.
 
-Use one AI reviewer initially. `.coderabbit.yaml` prepares CodeRabbit for non-draft
-PR reviews with concise, actionable feedback. Its App must be installed on this
-repository separately. Access/plan and cost must be acceptable to the team; no
-subscription, cloud account, or paid review service was provisioned by this setup.
+The team has chosen teammate reviews and automated checks, without an AI reviewer
+or paid review subscription. There is no reviewer App to install or model service
+to configure. Resolve important teammate findings or explain why they do not apply.
+Human approval and deterministic CI govern merging.
 
-A Claude/Bedrock review is another valid design, but it adds AWS identity, billing,
-model access, and workflow maintenance. Do not add it just to duplicate a reference
-project's provider choice. Choose one service when the team is ready.
-
-AI reviews are advisory. Resolve important findings or explain why they do not
-apply. Human review and deterministic CI govern merging. Limit bot permissions to
-what review needs, and keep it separate from deployment credentials. An unavailable
-review service must not masquerade as failed application tests.
+Dependabot remains useful for proposing dependency updates. It does not replace
+human code review and does not require an AI review service.
 
 ## 8. CI design
 
@@ -269,7 +263,6 @@ flowchart LR
     A[Feature branch] --> B[Pull request]
     B --> C[CI checks]
     B --> D[Human review]
-    B -.-> E[Advisory AI review]
     C --> F[Merge after requirements pass]
     D --> F
     F --> G[Validate merged commit]
@@ -307,7 +300,7 @@ and retain the corresponding test and deployment evidence.
 2. First runnable feature: decide the stack, implement a minimal vertical slice,
    add real lint/types/tests/builds, lock dependencies, and connect CI.
 3. First deployable feature: choose hosting, configure staging and secrets, add
-   deployment smoke tests and rollback instructions, and optionally enable AI review.
+   deployment smoke tests and rollback instructions.
 
 The acceptance exercise is concrete: a teammate clones on their own machine and
 runs setup/checks; malformed metadata or a broken check fails; a corrected PR
@@ -325,7 +318,6 @@ justifies their maintenance cost.
 - [GitHub branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
 - [GitHub secure workflow guidance](https://docs.github.com/en/actions/reference/security/secure-use)
 - [GitHub dependency update setup](https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-version-updates)
-- [CodeRabbit automatic reviews](https://docs.coderabbit.ai/configuration/auto-review)
 - [Prettier and linting](https://prettier.io/docs/comparison)
 - [Ruff](https://docs.astral.sh/ruff/)
 - [Playwright testing guidance](https://playwright.dev/docs/best-practices)
