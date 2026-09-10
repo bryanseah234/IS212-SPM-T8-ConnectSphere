@@ -25,3 +25,4 @@ data belong in version control. Production data and credentials do not.
 
 Record language/framework, API-contract, database, authentication, hosting, and
 package-manager choices in decision records before adding their infrastructure.
+
