@@ -8,24 +8,35 @@ repos:
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # pragma: allowlist secret
     hooks:
       - id: trailing-whitespace
+        stages: [pre-commit]
         args: [--markdown-linebreak-ext=md]
       - id: end-of-file-fixer
+        stages: [pre-commit]
       - id: mixed-line-ending
+        stages: [pre-commit]
         args: [--fix=no]
       - id: check-yaml
+        stages: [pre-commit]
       - id: check-json
+        stages: [pre-commit]
       - id: check-toml
+        stages: [pre-commit]
       - id: check-merge-conflict
+        stages: [pre-commit]
       - id: check-case-conflict
+        stages: [pre-commit]
       - id: check-added-large-files
+        stages: [pre-commit]
         args: [--maxkb=1000]
       - id: detect-private-key
+        stages: [pre-commit]
 
   - repo: https://github.com/Yelp/detect-secrets
     # Public Git commit for v1.5.0, not a credential.
     rev: 01886c8a910c64595c47f186ca1ffc0b77fa5458 # pragma: allowlist secret
     hooks:
       - id: detect-secrets
+        stages: [pre-commit]
         args: [--no-verify]
 
   - repo: local
