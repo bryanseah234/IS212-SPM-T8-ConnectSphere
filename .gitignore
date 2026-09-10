@@ -1,0 +1,44 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# Dependencies and development environments
+node_modules/
+.venv/
+.venv-tools/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated application output and test evidence
+dist/
+build/
+.next/
+.nuxt/
+.output/
+coverage/
+.coverage*
+htmlcov/
+playwright-report/
+test-results/
+*.log
+*.tsbuildinfo
+
+# Local editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local data; migrations and small synthetic fixtures belong in Git
+*.sqlite
+*.sqlite3
+*.db

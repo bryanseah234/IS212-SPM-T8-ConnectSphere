@@ -1,0 +1,3 @@
+# The optional personal identity hook permits these intentional public GitHub
+# review-routing handles. This is not an exception to repository secret scanning.
+.github/CODEOWNERS

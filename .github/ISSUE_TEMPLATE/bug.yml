@@ -1,0 +1,23 @@
+name: Bug report
+description: Describe reproducible incorrect behaviour.
+title: 'Bug: '
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include relevant browser/runtime versions and sanitised evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: How will we verify the fix?
+    validations:
+      required: true
