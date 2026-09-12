@@ -64,9 +64,8 @@ are accepted in CI only for PRs actually authored by Dependabot's bot account.
    findings or fix them. No AI review service is used.
 6. Squash merge after CI and one human approval, then delete the feature branch.
 
-Proposed required checks are `repository-checks` and `pr-conventions`.
-They are not merge blockers until an administrator enables the protections.
-See [the owner setup](docs/github-owner-setup.md).
+Required checks are `repository-checks`, `pr-conventions`, and `lfs-guard`.
+See [the owner setup](docs/github-owner-setup.md) for the exact GitHub settings.
 
 The initial empty-repository bootstrap is pushed directly to `main`. Local hooks
 allow `main` with a notice; enforced direct-push prevention belongs to GitHub.
@@ -80,14 +79,16 @@ shared branches or hide failures with `--no-verify`.
   files when configuration is known, plus dependency lockfiles and migrations.
 - Keep frontend and backend configuration separate. Anything bundled into the
   frontend is public; private credentials belong on the server.
+- Keep real secrets out of Git. Document safe placeholder names in `.env.example`
+  and follow [the security policy](SECURITY.md) if a credential is exposed.
 - Test public behaviour, rejection/error paths, permissions, and data boundaries.
   Keep normal tests independent of paid external services and real personal data.
 - Update docs when changing setup or interfaces. Record major choices in
   `docs/decisions/`, including alternatives and tradeoffs.
 - Keep issue, PR, and test evidence useful for coursework assessment. Check the
   course policy on individual contributions and AI use before relying on bots.
-- Do not add a package manager, framework, cloud service, or license until the
-  relevant team decision is recorded.
+- Do not add a package manager, framework, cloud service, or deployment target
+  until the relevant team decision is recorded.
 
 ## Maintaining the hooks
 

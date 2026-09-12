@@ -1,14 +1,14 @@
-# GitHub owner setup
+# GitHub administrator setup
 
-The repository was bootstrapped with collaborator write access. GitHub reported
-`admin: false` for that account on 2026-09-10. It can push files and trigger CI;
-it cannot enable branch protection or change merge settings. Repository owner
-`jininggg`, or another administrator, must complete these steps.
+The repository was bootstrapped under a personal account, then transferred to
+the course organization. GitHub reported administrator access after the transfer,
+so the authenticated administrator account can manage branch protection and merge
+settings.
 
 ## Activate the prepared settings
 
-After the initial `main` push, wait for `repository-checks` and `pr-conventions`
-to succeed. With GitHub CLI authenticated as an administrator, run from this repo:
+After changing required checks, wait for the relevant jobs to succeed on a pull
+request. With GitHub CLI authenticated as an administrator, run from this repo:
 
 ```text
 python scripts/configure_github.py
@@ -20,10 +20,12 @@ changing anything. The second applies and reads back the settings. It stops befo
 mutations if admin access is missing, either expected check has not passed on the
 current main commit, or existing protection/rulesets need reconciliation.
 
-The script targets `jininggg/IS212-SPM-T8-ConnectSphere` explicitly. It is an initial
-bootstrap helper; it does not overwrite protection added later. If an API call
-fails after the first update, it exits with the raw failure: inspect GitHub before
-retrying because earlier successful updates are not rolled back automatically.
+The script targets the repository reported by `gh repo view`, so update the
+local `origin` remote before running it after any future transfer. It is an
+initial bootstrap helper; it does not overwrite rulesets added later. If an API
+call fails after the first update, it exits with the raw failure: inspect GitHub
+before retrying because earlier successful updates are not rolled back
+automatically.
 
 Reviewable payloads:
 
@@ -31,9 +33,9 @@ Reviewable payloads:
   merges, PR title/body as squash message, delete merged branches, allow updating
   feature branches, and enable issues.
 - [Main protection](../.github/settings/main-protection.json): require an
-  up-to-date PR, the two CI checks, one approval, stale-approval dismissal, resolved
-  conversations, and linear history; disallow force pushes/deletion and enforce
-  the rules for admins too.
+  up-to-date PR, the repository checks, one approval, stale-approval dismissal,
+  resolved conversations, and linear history; disallow force pushes/deletion and
+  enforce the rules for admins too.
 
 In the GitHub UI, equivalent settings are under repository Settings, General
 (merge methods) and Branches (protection for `main`). Configure the required checks
@@ -50,12 +52,13 @@ disabling these protections for later work.
 
 ## Verify enforcement
 
-Open a small PR from a correctly named branch. Confirm both checks run. Change its
-title to an invalid title and verify `pr-conventions` fails, then correct it and
-verify it reruns successfully. Make a check fail and confirm merge is blocked.
-Confirm an otherwise green PR still needs another person's approval. After approval,
-push another change and verify the prior approval is dismissed. This is a manual
-acceptance exercise; the bootstrap does not claim it was completed remotely.
+Open a small PR from a correctly named branch. Confirm the required checks run.
+Change its title to an invalid title and verify `pr-conventions` fails, then
+correct it and verify it reruns successfully. Make a check fail and confirm merge
+is blocked. Confirm an otherwise green PR still needs another person's approval.
+After approval, push another change and verify the prior approval is dismissed.
+This is a manual acceptance exercise; the bootstrap does not claim it was
+completed remotely.
 
 ## Reviews and dependency updates
 

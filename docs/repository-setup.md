@@ -28,12 +28,12 @@ be selected when our team knows its requirements.
 | Tests of repository tooling | Implemented; not application tests |
 | Dependency update bot | Dependabot configured for Actions and tooling |
 | Human review routing | Shared CODEOWNERS configured |
-| Required approvals, required checks, squash-only merging | Prepared; owner must activate |
+| Required approvals, required checks, squash-only merging | Active on GitHub |
 | Code review | Teammate reviews; no AI reviewer or paid review subscription |
 | Frontend/backend languages and frameworks | Undecided |
 | Application lint, types, unit/integration/E2E tests, builds | Add with real application code |
 | Hosting, staging, production/demo delivery, rollback | Plan below; not deployed |
-| License | Team/course decision outstanding |
+| License | Apache-2.0 |
 
 The CI check names describe their scope. A green repository check must never be
 reported as a passing application build, passing application tests, or a successful
@@ -184,11 +184,11 @@ test evidence are ready for another teammate. One human approval is the proposed
 minimum. All current collaborators share initial code ownership; split paths
 when responsibilities become clear without creating a single-person bottleneck.
 
-The owner setup requires passing `repository-checks` and `pr-conventions`, an
-up-to-date branch, one approval, resolved conversations, and renewed approval
-after new changes invalidate the earlier review. It also blocks force pushes and
-branch deletion, including for administrators. These settings require GitHub
-administrator access; files alone cannot enforce them.
+The owner setup requires passing `repository-checks`, `pr-conventions`, and
+`lfs-guard`, an up-to-date branch, one approval, resolved conversations, and
+renewed approval after new changes invalidate the earlier review. It also blocks
+force pushes and branch deletion, including for administrators. These settings
+require GitHub administrator access to change.
 
 The team has chosen teammate reviews and automated checks, without an AI reviewer
 or paid review subscription. There is no reviewer App to install or model service
@@ -201,12 +201,17 @@ human code review and does not require an AI review service.
 ## 8. CI design
 
 `.github/workflows/ci.yml` runs on PRs to `main`, including drafts and PR-title
-edits, on pushes to `main`, and by manual dispatch. It has two stable check names:
+edits, on pushes to `main`, and by manual dispatch. Together with the LFS guard,
+the protected branch expects these stable check names:
 
 - `repository-checks`: pinned tooling installation, file checks, and tooling tests.
 - `pr-conventions`: source branch and PR title; explicitly not applicable to pushes.
 
-Both run without application or cloud secrets. The workflow uses read-only
+The organization template also contributed a lightweight `lfs-guard` workflow.
+It rejects Git LFS pointer files so the repository does not accidentally depend
+on large-file storage for ordinary coursework assets.
+
+All required checks run without application or cloud secrets. The workflow uses read-only
 repository permissions, a clean runner, pinned Action commit SHAs, timeouts, and
 cancellation of superseded runs. It uses `pull_request`, not privileged execution
 of untrusted PR code. Do not interpolate PR titles directly into shell scripts;
@@ -296,7 +301,7 @@ and retain the corresponding test and deployment evidence.
 ## 11. Implementation phases and acceptance evidence
 
 1. Foundation: guides, naming, hygiene, templates, hook setup, repository CI, and
-   prepared GitHub settings. Complete the owner's activation step.
+   active GitHub settings.
 2. First runnable feature: decide the stack, implement a minimal vertical slice,
    add real lint/types/tests/builds, lock dependencies, and connect CI.
 3. First deployable feature: choose hosting, configure staging and secrets, add

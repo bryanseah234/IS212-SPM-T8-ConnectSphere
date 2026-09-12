@@ -25,6 +25,13 @@ The team clarified on 2026-09-10 that it does not want AI review or paid review
 subscriptions. Use teammate reviews and automated checks. Dependency update
 automation remains separate from code review.
 
+On 2026-09-12, after moving the repository to the course organization and
+renaming it, the team adopted scoped material from the organization template:
+Apache-2.0 licensing, a security policy, a safe `.env.example`, repo-specific
+agent instructions, and a Git LFS pointer guard. The team intentionally did not
+copy template workflows for AI issue summaries, external review services,
+privileged bot auto-merge, DeepSource, or Sourcery.
+
 ## Alternatives and tradeoffs
 
 - Husky is appropriate for an all-JavaScript team, but choosing it now would add
