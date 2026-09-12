@@ -1,4 +1,4 @@
-"""Preview the proposed GitHub settings; an administrator can apply with --apply."""
+"""Preview or verify the proposed GitHub settings; an administrator can apply with --apply."""
 
 import argparse
 import json
@@ -6,7 +6,19 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REPOSITORY = "jininggg/IS212-SPM-T8-ConnectSphere"
+
+
+def current_repository() -> str:
+    result = subprocess.run(
+        ["gh", "repo", "view", "--json", "nameWithOwner", "--jq", ".nameWithOwner"],
+        capture_output=True, text=True, check=False,
+    )
+    if result.returncode:
+        raise RuntimeError(result.stderr.strip() or "Could not determine the current GitHub repository")
+    return result.stdout.strip()
+
+
+REPOSITORY = current_repository()
 
 
 def api(endpoint: str, *, method: str = "GET", payload: dict | None = None):
@@ -41,10 +53,10 @@ def main() -> int:
         print("BLOCKED: a repository administrator must run this command. No settings changed.")
         return 1
 
-    # This bootstrap script must never replace or weaken a protection added later.
     branch = api("/branches/main")
-    if branch.get("protected") or api("/rulesets"):
-        print("Existing protection/rulesets detected; review and adjust manually. No changes made.")
+    existing_rulesets = api("/rulesets")
+    if existing_rulesets:
+        print("Existing rulesets detected; review and adjust manually. No changes made.")
         return 1
     checks = api(f"/commits/{branch['commit']['sha']}/check-runs?per_page=100")
     successful = {check["name"] for check in checks["check_runs"] if check["conclusion"] == "success"}

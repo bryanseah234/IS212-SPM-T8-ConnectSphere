@@ -1,9 +1,9 @@
-# GitHub owner setup
+# GitHub administrator setup
 
-The repository was bootstrapped with collaborator write access. GitHub reported
-`admin: false` for that account on 2026-09-10. It can push files and trigger CI;
-it cannot enable branch protection or change merge settings. Repository owner
-`jininggg`, or another administrator, must complete these steps.
+The repository was bootstrapped under a personal account, then transferred to
+the course organization. GitHub reported administrator access after the transfer,
+so the authenticated administrator account can manage branch protection and merge
+settings.
 
 ## Activate the prepared settings
 
@@ -20,10 +20,12 @@ changing anything. The second applies and reads back the settings. It stops befo
 mutations if admin access is missing, either expected check has not passed on the
 current main commit, or existing protection/rulesets need reconciliation.
 
-The script targets `jininggg/IS212-SPM-T8-ConnectSphere` explicitly. It is an initial
-bootstrap helper; it does not overwrite protection added later. If an API call
-fails after the first update, it exits with the raw failure: inspect GitHub before
-retrying because earlier successful updates are not rolled back automatically.
+The script targets the repository reported by `gh repo view`, so update the
+local `origin` remote before running it after any future transfer. It is an
+initial bootstrap helper; it does not overwrite rulesets added later. If an API
+call fails after the first update, it exits with the raw failure: inspect GitHub
+before retrying because earlier successful updates are not rolled back
+automatically.
 
 Reviewable payloads:
 
