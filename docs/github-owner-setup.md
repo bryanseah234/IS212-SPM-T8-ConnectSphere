@@ -7,8 +7,8 @@ settings.
 
 ## Activate the prepared settings
 
-After the initial `main` push, wait for `repository-checks` and `pr-conventions`
-to succeed. With GitHub CLI authenticated as an administrator, run from this repo:
+After changing required checks, wait for the relevant jobs to succeed on a pull
+request. With GitHub CLI authenticated as an administrator, run from this repo:
 
 ```text
 python scripts/configure_github.py
@@ -33,9 +33,9 @@ Reviewable payloads:
   merges, PR title/body as squash message, delete merged branches, allow updating
   feature branches, and enable issues.
 - [Main protection](../.github/settings/main-protection.json): require an
-  up-to-date PR, the two CI checks, one approval, stale-approval dismissal, resolved
-  conversations, and linear history; disallow force pushes/deletion and enforce
-  the rules for admins too.
+  up-to-date PR, the repository checks, one approval, stale-approval dismissal,
+  resolved conversations, and linear history; disallow force pushes/deletion and
+  enforce the rules for admins too.
 
 In the GitHub UI, equivalent settings are under repository Settings, General
 (merge methods) and Branches (protection for `main`). Configure the required checks
@@ -52,12 +52,13 @@ disabling these protections for later work.
 
 ## Verify enforcement
 
-Open a small PR from a correctly named branch. Confirm both checks run. Change its
-title to an invalid title and verify `pr-conventions` fails, then correct it and
-verify it reruns successfully. Make a check fail and confirm merge is blocked.
-Confirm an otherwise green PR still needs another person's approval. After approval,
-push another change and verify the prior approval is dismissed. This is a manual
-acceptance exercise; the bootstrap does not claim it was completed remotely.
+Open a small PR from a correctly named branch. Confirm the required checks run.
+Change its title to an invalid title and verify `pr-conventions` fails, then
+correct it and verify it reruns successfully. Make a check fail and confirm merge
+is blocked. Confirm an otherwise green PR still needs another person's approval.
+After approval, push another change and verify the prior approval is dismissed.
+This is a manual acceptance exercise; the bootstrap does not claim it was
+completed remotely.
 
 ## Reviews and dependency updates
 

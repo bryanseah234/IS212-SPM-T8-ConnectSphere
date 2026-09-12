@@ -1,0 +1,36 @@
+name: LFS Guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lfs-guard-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    name: lfs-guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Reject Git LFS pointer files
+        shell: bash
+        run: |
+          set -euo pipefail
+          pointers="$(git grep -l '^version https://git-lfs.github.com/spec/v1' -- ':!*.md' || true)"
+          if [ -n "$pointers" ]; then
+            echo "::error::Git LFS pointer files are not allowed in this repository."
+            echo "$pointers"
+            exit 1
+          fi
+          echo "No Git LFS pointer files found."

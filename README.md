@@ -5,7 +5,7 @@ IS212 Software Project Management team 8 web application monorepo.
 - Status: repository foundation; application scope and technology stack are undecided.
 - Owners: the project team listed in [CODEOWNERS](.github/CODEOWNERS).
 - Frontend and backend will live together with independent application boundaries.
-- Licensing: not selected; the team should decide in line with course requirements.
+- Licensing: Apache-2.0, adopted from the organization template.
 
 ## Start here
 
@@ -38,6 +38,7 @@ setup after cloning, moving the repository, or changing the tooling dependencies
 - [Contributing](CONTRIBUTING.md): everyday commands and the PR workflow.
 - [GitHub owner setup](docs/github-owner-setup.md): activate the merge protections
   that cannot be enabled by a write-only collaborator.
+- [Security policy](SECURITY.md): how to report vulnerabilities and handle secrets.
 - [Architecture boundary](docs/architecture.md) and
   [initial decision record](docs/decisions/0001-repository-foundation.md).
 
@@ -45,8 +46,8 @@ setup after cloning, moving the repository, or changing the tooling dependencies
 
 Local hooks and CI check whitespace, structured-file syntax, conflicts, filename
 case collisions, large files, private keys, likely secrets, and repository-tooling
-behaviour. PRs also get branch/title validation. Dependabot is configured for
-GitHub Actions and the repository tooling.
+behaviour. PRs also get branch/title validation and a Git LFS pointer guard.
+Dependabot is configured for GitHub Actions and the repository tooling.
 
 **There is no application to run yet.** Frontend/backend linting, type checking,
 application tests, builds, and deployment are not configured. A green repository
@@ -65,5 +66,5 @@ docs/                 Setup guide, architecture, and decision records
 .github/              CI, templates, ownership, dependency updates, proposed settings
 ```
 
-See the owner guide for the outstanding server-side setup. Checking in the JSON
-settings files does not enable protection automatically.
+Server-side merge protection is active on GitHub. Keep the JSON settings files
+updated when required checks change.
