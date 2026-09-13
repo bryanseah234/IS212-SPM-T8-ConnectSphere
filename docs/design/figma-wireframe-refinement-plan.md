@@ -173,6 +173,48 @@ overlapping text. Existing boards were not modified.
 Batch 3 is the preferred proposal for team review. Batch 1 and Batch 2 remain on
 the canvas only for comparison.
 
+## Batch 4 plan: depth-first role boards
+
+Batch 4 should extend the Batch 3 direction rather than restart the visual style.
+Use the same neutral operational interface, existing teal palette, status colors,
+Inter type direction, and paired desktop/mobile layouts.
+
+Create one separated Figma area per role so the team can review ownership and
+workflow depth without mixing responsibilities:
+
+| Role board | Desktop screens | Mobile companion screens | Include future backlog |
+| --- | --- | --- | --- |
+| Event Organiser | Create event request wizard, request detail timeline, clarification response, change/cancel request | Request status, clarification reply, cancellation confirmation | Change request, cancellation, reusable draft |
+| Event Coordinator | Review queue, request detail, approval/rejection/clarification decision panel, event readiness checklist | Review summary, clarification thread, decision confirmation | Bulk triage, coordinator workload view |
+| Venue Staff | Venue request queue, venue availability/detail review, approve/reject with alternative venue | Booking request detail, availability response | Tentative holds, venue conflict suggestions |
+| Technical Support Staff | Equipment request queue, equipment reservation detail, partial reservation and staff assignment states | Equipment assignment summary, conflict response | Substitution suggestions, technician workload view |
+| Attendee | Event discovery, event detail, registration, waitlist, withdrawal | Event detail, register/waitlist, ticket/status, withdrawal | Personalized recommendations, post-event feedback |
+| Shared Access and Notifications | Login/account shell, permission denied, notification center, audit/history drawer | Login, notifications, role-aware home | Role switching, digest preferences |
+
+Depth-first means each role should get a complete mini-flow, not a single pretty
+dashboard. For each role, show:
+
+1. list or entry state;
+2. detail or form state;
+3. decision/error/empty state;
+4. success or status-tracking state;
+5. mobile companion for the same workflow.
+
+Future backlog content should be visually marked as `Future` or `Later` so the
+team can discuss it without confusing it with Release 1 implementation scope.
+Use it to reserve space in the information architecture, not to imply immediate
+build commitment.
+
+Recommended Batch 4 Figma execution:
+
+1. Make one new section named `High-fi proposal - Batch 4, role-based depth flows`.
+2. Place role boards left-to-right in the order above.
+3. Reuse Batch 3 dimensions and tokens where possible.
+4. Avoid broad repeated Figma reads; use the current documented palette and one
+   controlled write pass.
+5. After team review, export accepted frames into `docs/design/exports/` and
+   link each frame from the matching Jira issue.
+
 ## GitHub workflow plan
 
 Keep Figma planning separate from application implementation:

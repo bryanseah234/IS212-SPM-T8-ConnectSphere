@@ -8,6 +8,9 @@ Before changing files, read `README.md`, `CONTRIBUTING.md`, and
 `docs/repository-setup.md` enough to understand the current workflow. If a
 future `.agents/STATE.md` file exists, read it as shared handoff context. Do not
 write secrets, personal data, or machine-specific paths into committed files.
+For product, backlog, design, testing, or Jira work, also read
+`docs/source-of-truth.md` before editing derivative Markdown, Figma notes, Jira
+issues, or scaffold files.
 
 Use short-lived branches and reviewed pull requests into `main`. Commit messages
 and PR titles must follow the repository's conventional format, and branch names
