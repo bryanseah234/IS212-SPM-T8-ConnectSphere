@@ -5,7 +5,7 @@ import type { VercelRequest, VercelResponse } from '../backend/src/vercel';
 export default function handler(_request: VercelRequest, response: VercelResponse) {
   sendJson(response, 200, {
     ok: true,
-    app: 'connectsphere',
+    app: 'sgconnectsphere',
     env: runtimeConfig.appEnv,
     readiness: getReadiness(),
   });
