@@ -115,6 +115,23 @@ Do not run broad repeated Figma inspections. Use one frame-specific design
 context call per selected screen, or use manual Figma exports when rate limits
 matter more than structured node data.
 
+## Executed proposal pass
+
+On 2026-09-13, a first high-fi comparison board was added to the side of the
+existing Figma canvas. Existing boards were not modified.
+
+- Board name: `High-fi proposal - Batch 1, side-by-side comparison`
+- Board node id: `53:2`
+- Canvas position: `x=4018`, `y=-360`
+- Included proposal screens:
+  - Login
+  - Organiser dashboard
+  - Coordinator review queue
+  - Venue booking review
+
+This proposal is intentionally a comparison draft, not the final design system.
+The next Figma pass should use frame-specific links for exact screen refinement.
+
 ## GitHub workflow plan
 
 Keep Figma planning separate from application implementation:
