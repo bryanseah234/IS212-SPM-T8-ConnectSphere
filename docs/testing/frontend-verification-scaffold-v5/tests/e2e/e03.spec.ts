@@ -1,0 +1,616 @@
+import { test, expect } from '@playwright/test';
+
+// E03 - 25 cases. Generated from IS212_PROJECT_TEST_CASES.xlsx.
+// Each test.fixme() is a specification. Remove .fixme once implemented.
+
+test.describe('E03-S01 - Assign an Event Coordinator to a request', () => {
+
+  /**
+   * TC_E03S01_01
+   * AC:      Scenario 1 - Exactly one Coordinator assigned
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   organiser_a@clienta.com has a request "Annual Tech Summit" with all mandatory fields complete, ready to submit
+   *   At least one Event Coordinator account exists and is eligible for assignment
+   *
+   * Test data:
+   *   Request: Annual Tech Summit
+   *
+   * Expected result:
+   *   Exactly one Event Coordinator is assigned, the request status changes from "Submitted" to "Under Review", and that Coordinator receives a notification of the new assignment
+   */
+  test.fixme('TC_E03S01_01 - Verify that submitting a request should trigger automatic assignment of exactly one Event Coord', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Submit the request "Annual Tech Summit"
+    // 2. Open the request and check the "Assigned Coordinator" field and status
+    // 3. Log in as the assigned Coordinator and check their notifications
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S01_02
+   * AC:      Scenario 1 - Exactly one Coordinator assigned
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Coordinator coordinator_1@connectsphere.com currently has 1 active event assigned
+   *   Coordinator coordinator_2@connectsphere.com currently has 4 active events assigned
+   *   Both are eligible for new assignments
+   *
+   * Test data:
+   *   coordinator_1@connectsphere.com: 1 active event; coordinator_2@connectsphere.com: 4 active events
+   *
+   * Expected result:
+   *   The request "Charity Run" is assigned to coordinator_1@connectsphere.com, the Coordinator with the fewest active events
+   */
+  test.fixme('TC_E03S01_02 - Verify that when several Coordinators are available, the system should assign the one with the ', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Submit a new request "Charity Run"
+    // 2. Check which Coordinator the system assigns
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S01_03
+   * AC:      Scenario 3 - Assigned Coordinator reassigns
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" is currently assigned to coordinator_1@connectsphere.com
+   *
+   * Test data:
+   *   Request: Annual Tech Summit; Previous Coordinator: coordinator_1@connectsphere.com; New Coordinator: coordinator_2@connectsphere.com
+   *
+   * Expected result:
+   *   coordinator_1@connectsphere.com's assignment ends, coordinator_2@connectsphere.com becomes the new assignee, both Coordinators are notified, and the reassignment is recorded in the activity log
+   */
+  test.fixme('TC_E03S01_03 - Verify that the currently assigned Coordinator should be able to reassign the event to a collea', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Select "Reassign" and choose coordinator_2@connectsphere.com
+    // 4. Confirm the reassignment
+    // 5. Check both Coordinators' notifications and the activity log
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S01_04
+   * AC:      Scenario 3 - Assigned Coordinator reassigns
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" is assigned to coordinator_1@connectsphere.com
+   *   coordinator_2@connectsphere.com is not assigned to this request
+   *
+   * Test data:
+   *   Request: Annual Tech Summit; Acting user: coordinator_2@connectsphere.com (not assigned)
+   *
+   * Expected result:
+   *   The reassignment action is refused, e.g. with a message that only the assigned Coordinator can reassign this request
+   */
+  test.fixme('TC_E03S01_04 - Verify that a Coordinator who is not assigned to an event should be refused when attempting to ', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_2@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Attempt to reassign it to another Coordinator
+
+    // TODO implement
+  });
+
+test.describe('E03-S02 - Request clarification from the Event Organiser', () => {
+
+  /**
+   * TC_E03S02_01
+   * AC:      Scenario 1 - Questions sent, status changes
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" has status "Under Review", assigned to coordinator_1@connectsphere.com
+   *
+   * Test data:
+   *   Question: "Please confirm the expected number of attendees"
+   *
+   * Expected result:
+   *   The status changes to "Awaiting Clarification" and organiser_a@clienta.com is notified, with the question included in the notification
+   */
+  test.fixme('TC_E03S02_01 - Verify that recording and sending clarification questions on an Under-Review request should mov', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Select "Request Clarification"
+    // 4. Enter the question "Please confirm the expected number of attendees"
+    // 5. Click "Send"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S02_02
+   * AC:      Scenario 2 - Organiser responds, review resumes
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" has status "Awaiting Clarification" with an outstanding question from coordinator_1@connectsphere.com
+   *
+   * Test data:
+   *   Response: "Expected attendance is 200"
+   *
+   * Expected result:
+   *   The status returns to "Under Review" and coordinator_1@connectsphere.com is notified of the response
+   */
+  test.fixme('TC_E03S02_02 - Verify that when the Organiser responds and resubmits, the request should return to Under Revie', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Enter a response to the outstanding question: "Expected attendance is 200"
+    // 4. Click "Resubmit"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S02_03
+   * AC:      Scenario 3 - Outstanding questions visible
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" has status "Awaiting Clarification" with question "Please confirm the expected number of attendees" raised on 08/09/2026
+   *
+   * Test data:
+   *   Question: "Please confirm the expected number of attendees"; Date raised: 08/09/2026
+   *
+   * Expected result:
+   *   The outstanding question is shown together with the date it was raised (08/09/2026)
+   */
+  test.fixme('TC_E03S02_03 - Verify that a request Awaiting Clarification should show its outstanding questions and the date', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as either organiser_a@clienta.com or coordinator_1@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Review the clarification section
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S02_04
+   * AC:      TODO - confirm which scenario this is evidence for
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   coordinator_1@connectsphere.com has 2 events with status "Awaiting Clarification" and 3 events with other statuses
+   *
+   * Test data:
+   *   Filter value: Awaiting Clarification
+   *
+   * Expected result:
+   *   Only the 2 events with status "Awaiting Clarification" are displayed; the other 3 are excluded
+   */
+  test.fixme('TC_E03S02_04 - Verify that an Event Coordinator should be able to filter their events by clarification status', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Navigate to "My Events"
+    // 3. Apply the filter "Status = Awaiting Clarification"
+
+    // TODO implement
+  });
+
+test.describe('E03-S03 - Decide on an event request', () => {
+
+  /**
+   * TC_E03S03_01
+   * AC:      Scenario 1 - Approved to planning
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" has status "Under Review" and all required information is complete
+   *
+   * Test data:
+   *   Request: Annual Tech Summit (all required information complete)
+   *
+   * Expected result:
+   *   The status becomes "Approved" and organiser_a@clienta.com is notified
+   */
+  test.fixme('TC_E03S03_01 - Verify that approving a request with complete required information should move its status to Ap', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Click "Approve"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S03_02
+   * AC:      Scenario 2 - Incomplete request blocked
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Annual Tech Summit" has status "Under Review"; Venue Requirements field is missing
+   *
+   * Test data:
+   *   Missing field: Venue Requirements
+   *
+   * Expected result:
+   *   Approval is blocked and "Venue Requirements" is listed as a missing item; the status remains "Under Review"
+   */
+  test.fixme('TC_E03S03_02 - Verify that approval should be blocked while required information is incomplete, with the missi', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Annual Tech Summit"
+    // 3. Click "Approve"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S03_03
+   * AC:      Scenario 3 - Rejected with reason
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Winter Gala" has status "Under Review"
+   *
+   * Test data:
+   *   Rejection reason: "Requested date unavailable across all venues"
+   *
+   * Expected result:
+   *   The status becomes "Rejected", the reason is stored against the request, and organiser_a@clienta.com is notified
+   */
+  test.fixme('TC_E03S03_03 - Verify that rejecting a request under review with a recorded reason should set its status to Re', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Winter Gala"
+    // 3. Click "Reject"
+    // 4. Enter reason "Requested date unavailable across all venues"
+    // 5. Confirm the rejection
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S03_04
+   * AC:      Scenario 4 - Rejection without reason blocked
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Winter Gala" has status "Under Review"
+   *
+   * Test data:
+   *   Rejection reason: (blank)
+   *
+   * Expected result:
+   *   The rejection is blocked with a message that a reason is required; the status remains "Under Review"
+   */
+  test.fixme('TC_E03S03_04 - Verify that attempting to reject a request without recording a reason should be blocked', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open request "Winter Gala"
+    // 3. Click "Reject"
+    // 4. Leave the reason field empty
+    // 5. Click "Confirm"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S03_05
+   * AC:      Scenario 3 - Rejected with reason
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Request "Winter Gala" was rejected by coordinator_1@connectsphere.com on 10/09/2026 with reason "Requested date unavailable across all venues"
+   *
+   * Test data:
+   *   Rejection reason: "Requested date unavailable across all venues"; Decision date: 10/09/2026
+   *
+   * Expected result:
+   *   The reason and decision date are shown in plain language (e.g. "Rejected on 10 September 2026 — Requested date unavailable across all venues"); all fields are read-only and cannot be edited
+   */
+  test.fixme('TC_E03S03_05 - Verify that a rejected request should show its reason and decision date in plain language to th', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open the rejected request "Winter Gala"
+    // 3. Review the displayed reason and date
+    // 4. Attempt to edit any field on the request
+
+    // TODO implement
+  });
+
+test.describe('E03-S05 - Track the status of my event', () => {
+
+  /**
+   * TC_E03S05_01
+   * AC:      Scenario 1 - Current status in plain language
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved", reached on 10/09/2026
+   *
+   * Test data:
+   *   Status: Approved; Date reached: 10/09/2026
+   *
+   * Expected result:
+   *   The event shows "Approved" and "Reached on 10 September 2026" in plain, human-readable language
+   */
+  test.fixme('TC_E03S05_01 - Verify that opening an event should show its current status and the date it was reached in plai', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S05_02
+   * AC:      Scenario 2 - New status and history entry
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved"; coordinator_1@connectsphere.com is about to move it to "Planning"
+   *
+   * Test data:
+   *   New status: Planning
+   *
+   * Expected result:
+   *   The event now shows status "Planning", and the event history section shows an entry recording the change from Approved to Planning
+   */
+  test.fixme('TC_E03S05_02 - Verify that when an event\'s status changes, the new status should be shown and the change shoul', async ({ page }) => {
+    // Steps from the specification:
+    // 1. As coordinator_1@connectsphere.com, submit the first venue booking request for one of "Annual Tech Summit"'s events (this is what moves an Approved event to Planning, per E06-S03)
+    // 2. Log in as organiser_a@clienta.com and open event "Annual Tech Summit"
+    // 3. Check the current status and the event history section
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S05_03
+   * AC:      Scenario 2 - New status and history entry
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has moved through statuses Submitted → Under Review → Approved → Planning over time
+   *
+   * Test data:
+   *   Expected history: Submitted, Under Review, Approved, Planning (each with its date)
+   *
+   * Expected result:
+   *   All 4 past status changes are listed in order with their dates, matching the entries recorded in the activity log (E14-S02)
+   */
+  test.fixme('TC_E03S05_03 - Verify that an Organiser should be able to see the full status history for their event', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Open the "Status History" section
+
+    // TODO implement
+  });
+
+test.describe('E03-S06 - Discuss an event through comments', () => {
+
+  /**
+   * TC_E03S06_01
+   * AC:      Scenario 1 - Comment posted and Coordinator notified
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   organiser_a@clienta.com has access to event "Annual Tech Summit", assigned to coordinator_1@connectsphere.com
+   *
+   * Test data:
+   *   Comment: "Can we confirm the AV setup by Friday?"
+   *
+   * Expected result:
+   *   The comment appears on the event showing "organiser_a@clienta.com" and the posting time; coordinator_1@connectsphere.com receives a notification of the new comment
+   */
+  test.fixme('TC_E03S06_01 - Verify that posting a comment on an accessible event should show the author, timestamp, and not', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Enter the comment "Can we confirm the AV setup by Friday?" and click "Post"
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S06_02
+   * AC:      Scenario 2 - Comments in chronological order
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has 3 existing comments posted at 09:00, 10:30, and 14:00 on 09/09/2026
+   *
+   * Test data:
+   *   3 comments timestamped 09:00, 10:30, 14:00 on 09/09/2026
+   *
+   * Expected result:
+   *   The 3 comments are displayed in chronological order (09:00, then 10:30, then 14:00)
+   */
+  test.fixme('TC_E03S06_02 - Verify that all comments on an event should be shown in chronological order', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com or coordinator_1@connectsphere.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Review the comments section
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S06_03
+   * AC:      Scenario 3 - Comment on inaccessible event refused
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   organiser_b@clienta.com is linked to Client B and does not have access to event "Annual Tech Summit" (Client A)
+   *
+   * Test data:
+   *   Acting user: organiser_b@clienta.com (no access)
+   *
+   * Expected result:
+   *   The comment action is refused; organiser_b@clienta.com cannot post on an event they do not have access to
+   */
+  test.fixme('TC_E03S06_03 - Verify that attempting to post a comment on an event without access should be refused', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_b@clienta.com
+    // 2. Attempt to open event "Annual Tech Summit" and post a comment
+
+    // TODO implement
+  });
+
+test.describe('E03-S07 - View and update event information', () => {
+
+  /**
+   * TC_E03S07_01
+   * AC:      Scenario 4 - Restricted edit routed to change request
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Under Review" (not yet approved)
+   *
+   * Test data:
+   *   Expected Attendance: 200 → 250
+   *
+   * Expected result:
+   *   The change is saved directly against the event without restriction
+   */
+  test.fixme('TC_E03S07_01 - Verify that an Organiser should be able to directly edit any field while the event has not yet ', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Edit the Expected Attendance from 200 to 250
+    // 4. Save
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S07_02
+   * AC:      Scenario 2 - Coordinator edits after approval
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved", assigned to coordinator_1@connectsphere.com
+   *
+   * Test data:
+   *   Venue Requirements: updated text
+   *
+   * Expected result:
+   *   The change is saved, and an activity log entry records the edit with actor = coordinator_1@connectsphere.com
+   */
+  test.fixme('TC_E03S07_02 - Verify that the assigned Coordinator should be able to edit any field after approval, with the ', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_1@connectsphere.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Edit the Venue Requirements field
+    // 4. Save
+    // 5. Check the activity log
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S07_03
+   * AC:      Scenario 4 - Restricted edit routed to change request
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved"
+   *
+   * Test data:
+   *   Description: updated text
+   *
+   * Expected result:
+   *   The change is saved directly against the event without being redirected to a change request
+   */
+  test.fixme('TC_E03S07_03 - Verify that an Organiser should be able to directly edit name, description, purpose, or registr', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Edit the Description field
+    // 4. Save
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S07_04
+   * AC:      Scenario 4 - Restricted edit routed to change request
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved"
+   *
+   * Test data:
+   *   Field attempted: Date
+   *
+   * Expected result:
+   *   Direct editing is refused; the Organiser is directed to the change request form (E10-S01), pre-filled for the Date field
+   */
+  test.fixme('TC_E03S07_04 - Verify that an Organiser attempting to directly edit a restricted field after approval should b', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Attempt to directly edit the Date field
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S07_05
+   * AC:      Scenario 5 - Unassigned Coordinator refused
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved", assigned to coordinator_1@connectsphere.com
+   *   coordinator_2@connectsphere.com is not assigned to this event
+   *
+   * Test data:
+   *   Acting user: coordinator_2@connectsphere.com (not assigned)
+   *
+   * Expected result:
+   *   The edit action is refused since coordinator_2@connectsphere.com is not the assigned Coordinator
+   */
+  test.fixme('TC_E03S07_05 - Verify that a Coordinator who is not assigned to an approved event should be refused when attem', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as coordinator_2@connectsphere.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Attempt to edit any field
+
+    // TODO implement
+  });
+
+  /**
+   * TC_E03S07_06
+   * AC:      Scenario 1 - Organiser edits before approval
+   * Sprint:  2.0
+   *
+   * Pre-conditions:
+   *   Event "Annual Tech Summit" has status "Approved"
+   *
+   * Test data:
+   *   Purpose: updated text
+   *
+   * Expected result:
+   *   The change is saved, and an activity log entry records the edit with actor = organiser_a@clienta.com, confirming every post-approval edit is logged regardless of who makes it
+   */
+  test.fixme('TC_E03S07_06 - Verify that an Organiser\'s unrestricted post-approval edit should also be recorded in the activ', async ({ page }) => {
+    // Steps from the specification:
+    // 1. Log in as organiser_a@clienta.com
+    // 2. Open event "Annual Tech Summit"
+    // 3. Edit the Purpose field
+    // 4. Save
+    // 5. Check the activity log
+
+    // TODO implement
+  });
+
+});
+});
+});
+});
+});
+});
