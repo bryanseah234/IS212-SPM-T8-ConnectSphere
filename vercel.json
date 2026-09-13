@@ -1,0 +1,22 @@
+{
+  "buildCommand": "npm run build --workspace frontend",
+  "installCommand": "npm install",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
+  "crons": [
+    {
+      "path": "/api/cron/outbox-relay",
+      "schedule": "*/10 * * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

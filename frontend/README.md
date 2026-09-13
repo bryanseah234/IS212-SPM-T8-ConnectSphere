@@ -1,11 +1,21 @@
 # Frontend
 
-Reserved for the browser application. Framework and package manager are undecided.
+React + Vite browser application scaffold for the ConnectSphere operations UI.
 
-Add source, meaningful tests, a dependency lockfile, a placeholder `.env.example`,
-and lint/type/build commands when selecting the stack. Connect those commands to
-the root workflow in the same change. Keep server credentials out of browser code.
+## Commands
 
-Frontend verification planning lives in `docs/testing/` until the team records
-the stack decision and promotes the relevant files into runnable application
-tests.
+Run from the repository root:
+
+```text
+npm install
+npm run dev
+npm run typecheck --workspace frontend
+npm run build --workspace frontend
+```
+
+The current UI is a scaffold shell that visualises release 1 roles, queue states,
+and provider boundaries. It is not a complete implementation of the product
+backlog yet.
+
+Keep server-only credentials out of frontend code. Browser-safe values should use
+the public names documented in `.env.template`.
