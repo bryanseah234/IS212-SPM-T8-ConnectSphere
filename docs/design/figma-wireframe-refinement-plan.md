@@ -5,11 +5,12 @@
 - Figma file: `ConnectSphere-Wireframes`
 - File key: `i6w23xtH8NmmtbI47P7Lpe`
 - Shared link inspected: `https://www.figma.com/design/i6w23xtH8NmmtbI47P7Lpe/ConnectSphere-Wireframes?node-id=0-1`
-- Repository branch for this plan: `docs/plan-figma-wireframes`
+- Repository branch for this plan: `docs/figma-high-fi-proposal`
 
 The shared link points to the page root (`0:1`), not to an individual screen
-frame. Figma rejected that node as a design-context target, so future design
-inspection should use frame-specific links or exported screenshots/SVGs.
+frame. It is usable for file-level proposal work, but future exact
+screen-by-screen inspection should use frame-specific links or exported
+screenshots/SVGs.
 
 ## What exists in Figma now
 
@@ -130,7 +131,20 @@ existing Figma canvas. Existing boards were not modified.
   - Venue booking review
 
 This proposal is intentionally a comparison draft, not the final design system.
-The next Figma pass should use frame-specific links for exact screen refinement.
+On 2026-09-13, a second high-fi comparison board was added to continue the
+proposal beside the existing canvas content. Existing boards were not modified.
+
+- Board name: `High-fi proposal - Batch 2, event request and attendee registration`
+- Board node id: `55:2`
+- Canvas position: `x=6098`, `y=-360`
+- Included proposal screens:
+  - Submit event request
+  - Request detail/status history
+  - Clarification response
+  - Attendee registration
+
+The next Figma pass should use frame-specific links for exact screen refinement,
+or team review can start from the two proposal boards now on the canvas.
 
 ## GitHub workflow plan
 
