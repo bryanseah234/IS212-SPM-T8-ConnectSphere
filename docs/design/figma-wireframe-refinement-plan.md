@@ -146,6 +146,33 @@ proposal beside the existing canvas content. Existing boards were not modified.
 The next Figma pass should use frame-specific links for exact screen refinement,
 or team review can start from the two proposal boards now on the canvas.
 
+On 2026-09-13, a third high-fi comparison board was added as a cleaner
+responsive proposal after review feedback that Batch 2 was too rough and had
+overlapping text. Existing boards were not modified.
+
+- Board name: `High-fi proposal - Batch 3, responsive web and mobile`
+- Board node id: `58:2`
+- Canvas position: `x=8168`, `y=-360`
+- Included proposal screens:
+  - Desktop organiser dashboard
+  - Desktop coordinator review queue
+  - Mobile organiser request status
+  - Mobile attendee event registration
+- Palette used from the existing Figma notes:
+  - Primary teal `#0E7C7B`
+  - Hover teal `#14A3A1`
+  - Pressed/dark teal `#0A5958`
+  - Page background `#F7F7F5`
+  - Surface `#FFFFFF`
+  - Border `#E5E5E5`
+  - Success `#1F9254`
+  - Warning `#D9A017`
+  - Danger `#C0392B`
+  - Info `#2B6CB0`
+
+Batch 3 is the preferred proposal for team review. Batch 1 and Batch 2 remain on
+the canvas only for comparison.
+
 ## GitHub workflow plan
 
 Keep Figma planning separate from application implementation:
