@@ -1,0 +1,41 @@
+name: Update PR branches
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */4 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-pr-branches
+  cancel-in-progress: false
+
+jobs:
+  update-branches:
+    name: Update stale same-repository PR branches
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Update branches that are behind main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          gh pr list \
+            --repo "$REPOSITORY" \
+            --base main \
+            --state open \
+            --json number,isDraft,headRepository,mergeStateStatus \
+            --jq '.[] | select(.isDraft == false) | select(.headRepository.nameWithOwner == "'"$REPOSITORY"'") | select(.mergeStateStatus == "BEHIND") | .number' |
+          while IFS= read -r pr_number; do
+            if [ -n "$pr_number" ]; then
+              echo "Updating PR #$pr_number"
+              gh pr update-branch "$pr_number" --repo "$REPOSITORY"
+            fi
+          done
