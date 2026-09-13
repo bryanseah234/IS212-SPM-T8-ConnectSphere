@@ -8,6 +8,7 @@ Current live repository settings:
 - Delete branch on merge.
 - Update-branch support enabled.
 - Native GitHub auto-merge enabled.
+- Scheduled same-repository PR branch updates enabled.
 - `main` requires up-to-date branches, the required checks, one human approval,
   resolved conversations, linear history, and no force pushes or deletions.
 
@@ -31,11 +32,19 @@ That means the normal flow is:
 GitHub does not automatically enable auto-merge for every future PR from this
 repository setting alone. Someone with permission still enables it per PR.
 
-GitHub also does not automatically update every PR branch just because
-`allow_update_branch` is enabled. That setting makes the update-branch operation
-available. Because `main` uses strict required checks, stale PR branches must be
-updated before merge.
+`allow_update_branch` makes the update-branch operation available. The
+`Update PR branches` workflow runs on a schedule and by manual dispatch to update
+open, non-draft PRs whose branches are behind `main`.
 
-Do not add a custom bot workflow that updates or merges PRs automatically unless
-the team records that decision first. Native GitHub auto-merge after human review
-is the current automation boundary.
+The updater is intentionally narrow:
+
+- It only updates PRs targeting `main`.
+- It only updates branches in this repository.
+- It skips draft PRs.
+- It updates only PRs GitHub reports as `BEHIND`.
+- It does not merge PRs.
+- It does not use `pull_request_target`.
+
+Do not add a bot workflow that merges PRs automatically unless the team records
+that decision first. Native GitHub auto-merge after human review is the current
+merge automation boundary.
