@@ -18,6 +18,10 @@ JIRA_EMAIL=<your Jira login email>
 JIRA_API_TOKEN=<your own token or connector secret>
 ```
 
+Use `.env.jira.example` as the committed template. Each teammate can copy it to
+`.env.jira` or configure the same variables in their own agent, shell, or secret
+store. The real `.env.jira` file is ignored by Git.
+
 Use one of these methods, depending on what a teammate's agent supports:
 
 | Method | Use when | Notes |
