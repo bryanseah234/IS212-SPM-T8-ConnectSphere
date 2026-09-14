@@ -15,7 +15,7 @@ What is graded, in the top bands:
 - *"a comprehensive CI pipeline reliably builds and tests the system"*
 - *"Demonstrates complete ownership and deep understanding of all code … articulately justifies trade-offs and AI contributions during Q&A"*
 
-The imported scaffold currently contains 222 `test.fixme()` cases written in
+The imported scaffold currently contains 227 `test.fixme()` cases written in
 that taxonomy. Turning the relevant cases into an automated suite is the
 verification, and it produces the traceability evidence as a by-product.
 
@@ -51,7 +51,7 @@ test runner are formally adopted.
 
 | File | What it is |
 |---|---|
-| `tests/e2e/e01..e14.spec.ts` | 222 cases as `test.fixme()` stubs, grouped by story. Each carries its ID, matched acceptance criterion, pre-conditions, test data, expected result and numbered steps as a docblock. |
+| `tests/e2e/e01..e14.spec.ts` | 227 cases as `test.fixme()` stubs, grouped by story. Each carries its ID, matched acceptance criterion, pre-conditions, test data, expected result and numbered steps as a docblock. |
 | `tests/seed/SEED_DATA.md` | The 12 accounts, 2 client organisations, 2 venues and 2 equipment items your cases assume exist, extracted from their pre-conditions. |
 | `tests/seed/global-setup.ts` | Reset-and-reseed hook, refusing to run against an unknown database. |
 | `playwright.config.ts` | Desktop and mobile projects, HTML + JSON reporters. |
@@ -59,7 +59,10 @@ test runner are formally adopted.
 
 **Why stubs rather than implementations.** The docblock is the specification and the agent fills in the body. That ordering is the brief's own recommendation — *"agree the test cases first, then generate code to pass them"* — and it stops the agent inventing its own idea of correct behaviour. It also means the traceability is structural: the test name is the case ID, so the HTML report *is* your requirement-to-test-to-result evidence.
 
-**196 of 222 cases were auto-matched to a specific scenario.** The remaining 26 say `TODO - confirm which scenario this is evidence for`. Those need a human, and they are the same 26 that the missing AC Reference column would have identified.
+All 227 cases in `docs/testing/PROJECT TEST CASES.xlsx` now carry an AC reference
+and are represented in the runnable scaffold. Because the Playwright config runs
+desktop and mobile projects, `npm run test:e2e:scaffold` reports 454 skipped
+tests until story owners remove `.fixme` case by case.
 
 ## Running order
 
