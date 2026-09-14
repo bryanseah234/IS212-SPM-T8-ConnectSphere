@@ -246,12 +246,18 @@ Planned Batch 5 coverage:
 
 Batch 5 todo list:
 
-1. Add the Batch 5 Figma board to the existing wireframe file without replacing
-   Batches 1-4.
-2. Record the Batch 5 node id and screen list in this document.
-3. Export accepted Batch 5 frames into `docs/design/exports/` after review.
-4. Link approved screens to Jira stories once the Jira project is connected.
-5. Use Batch 5 to drive frontend route/component folder scaffolding.
+1. Accepted: use the Batch 5 breadth-first screen inventory as the frontend
+   design direction.
+2. Done in frontend first: Batch 5 is represented in the React prototype because
+   the Figma connector returned `INVALID_ARGUMENT` during write attempts.
+3. Next frontend PR: create `feature/SCRUM-26-organiser-request-flow` to split
+   the prototype into reusable layout/components and implement the Organiser
+   create-request-to-submit flow with mock data and validation states.
+4. Follow-up: add real route/page structure by role, starting with Organiser and
+   Coordinator screens before Venue, Technical Support, Attendee, Shared Ops,
+   and Admin/Future.
+5. Follow-up: export or sync accepted Batch 5 screens into Figma when the
+   connector works, then link approved screens to Jira stories.
 
 ## GitHub workflow plan
 
