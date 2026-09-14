@@ -774,6 +774,7 @@ function App() {
                 Organiser flow
               </button>
             </div>
+            <a href="/register">Create Account</a>
             <IconButton icon={Search} label="Search screens" />
             <IconButton icon={SlidersHorizontal} label="Filter screens" />
             <IconButton icon={Bell} label="Open notifications" />

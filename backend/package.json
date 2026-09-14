@@ -9,7 +9,10 @@
     "db:reset": "tsx src/database/cli.ts reset",
     "db:seed:test": "tsx src/database/cli.ts seed",
     "db:validate": "tsx src/database/cli.ts validate",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "dev": "tsx src/dev.ts",
+    "test": "tsx --test tests/registration.test.ts",
+    "test:db": "tsx --test tests/registration.db.test.ts"
   },
   "dependencies": {
     "@upstash/redis": "latest",
