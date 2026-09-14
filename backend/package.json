@@ -5,12 +5,19 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json --noEmit",
+    "db:migrate": "tsx src/database/cli.ts migrate",
+    "db:reset": "tsx src/database/cli.ts reset",
+    "db:seed:test": "tsx src/database/cli.ts seed",
+    "db:validate": "tsx src/database/cli.ts validate",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@upstash/redis": "latest"
+    "@upstash/redis": "latest",
+    "pg": "^8.23.0"
   },
   "devDependencies": {
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.21.0",
     "typescript": "latest"
   }
 }

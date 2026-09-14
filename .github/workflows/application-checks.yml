@@ -6,8 +6,10 @@ on:
       - "api/**"
       - "backend/**"
       - "frontend/**"
+      - "tests/**"
       - "package.json"
       - "package-lock.json"
+      - "playwright.config.ts"
       - "vercel.json"
       - ".github/workflows/application-checks.yml"
 
@@ -38,3 +40,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Playwright scaffold
+        run: npm run test:e2e:scaffold
