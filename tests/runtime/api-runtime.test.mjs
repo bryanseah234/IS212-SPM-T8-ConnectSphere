@@ -69,11 +69,13 @@ test('compiled health handler loads under Node and reports configuration without
   assert.equal(response.body.ok, true);
   assert.equal(response.body.app, 'sgconnectsphere');
   assert.deepEqual(response.body.readiness, {
-    app: true, supabase: false, upstashRedis: false, brevo: false, cronSecret: false,
+    app: true, supabase: false, upstashRedis: false, brevo: false, cronSecret: false, database: false,
   });
 });
 
 for (const [path, method, expected] of [
+  ['api/events.js', 'GET', 405],
+  ['api/events.js', 'POST', 401],
   ['api/notifications/send.js', 'GET', 405],
   ['api/notifications/send.js', 'POST', 401],
   ['api/cron/outbox-relay.js', 'POST', 405],

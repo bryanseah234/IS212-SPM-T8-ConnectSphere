@@ -47,8 +47,9 @@ The current API routes are deployable scaffolding only:
 This implements the dispatch boundary from ADR-006 in the primary architecture
 Word document. Business services must use `inTransaction` and call
 `insertNotificationDelivery` with the same database client as the business write.
-Both changes then commit or roll back together. The other business modules remain
-scaffolds; this does not claim complete event or registration workflows.
+Both changes then commit or roll back together. The separate event-create route
+is preserved, but notification-producing business workflows still need to call
+this helper. This does not claim complete event or registration workflows.
 
 The internal `POST /api/notifications/send` contract now accepts only
 `{"deliveryId":"<committed-delivery-uuid>"}` with the configured internal secret.
