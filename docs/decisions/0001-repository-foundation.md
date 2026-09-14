@@ -27,7 +27,7 @@ automation remains separate from code review.
 
 On 2026-09-12, after moving the repository to the course organization and
 renaming it, the team adopted scoped material from the organization template:
-Apache-2.0 licensing, a security policy, a safe `.env.example`, repo-specific
+Apache-2.0 licensing, a security policy, a safe `.env.template`, repo-specific
 agent instructions, and a Git LFS pointer guard. The team intentionally did not
 copy template workflows for AI issue summaries, external review services,
 privileged bot auto-merge, DeepSource, or Sourcery.
