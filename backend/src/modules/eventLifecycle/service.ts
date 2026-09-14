@@ -1,6 +1,6 @@
-import { validateEventStatusTransition } from './status';
-import type { EventLifecycleRepository } from './repository';
-import type { StatusChangeRequest } from './types';
+import { validateEventStatusTransition } from './status.js';
+import type { EventLifecycleRepository } from './repository.js';
+import type { StatusChangeRequest } from './types.js';
 
 export async function changeEventStatus(
   repository: EventLifecycleRepository,

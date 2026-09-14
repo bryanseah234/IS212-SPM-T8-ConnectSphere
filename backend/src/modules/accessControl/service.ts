@@ -1,5 +1,5 @@
-import type { AuthenticatedUser, AuthorizationDecision, LoginFailureState } from './types';
-import type { UserRole } from '../shared/roles';
+import type { AuthenticatedUser, AuthorizationDecision, LoginFailureState } from './types.js';
+import type { UserRole } from '../shared/roles.js';
 
 export const LOCKOUT_FAILURE_THRESHOLD = 5;
 

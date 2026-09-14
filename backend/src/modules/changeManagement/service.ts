@@ -1,4 +1,4 @@
-import type { ChangeManagementRepository } from './repository';
+import type { ChangeManagementRepository } from './repository.js';
 
 export type ChangeManagementService = {
   repository: ChangeManagementRepository;

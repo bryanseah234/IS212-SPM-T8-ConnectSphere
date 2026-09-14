@@ -1,8 +1,8 @@
 import { Redis } from '@upstash/redis';
-import { requireEnv, runtimeConfig } from '../config';
-import type { NotificationQueue } from '../modules/notificationDispatcher';
-import type { NotificationQueueJob } from '../modules/notificationDispatcher';
-import type { EmailJob } from './brevo';
+import { requireEnv, runtimeConfig } from '../config.js';
+import type { NotificationQueue } from '../modules/notificationDispatcher/index.js';
+import type { NotificationQueueJob } from '../modules/notificationDispatcher/index.js';
+import type { EmailJob } from './brevo.js';
 
 function createRedis() {
   return new Redis({

@@ -1,4 +1,4 @@
-import type { EventStatus } from './status';
+import type { EventStatus } from './status.js';
 
 export type EventRecord = {
   id: string;

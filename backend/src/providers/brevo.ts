@@ -1,4 +1,4 @@
-import { requireEnv, runtimeConfig } from '../config';
+import { requireEnv, runtimeConfig } from '../config.js';
 
 export type EmailJob = {
   to: string;

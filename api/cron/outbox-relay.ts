@@ -1,8 +1,8 @@
-import { runtimeConfig } from '../../backend/src/config';
-import { hasInternalSecret, requireMethod, sendJson } from '../../backend/src/http';
-import { sendBrevoEmail } from '../../backend/src/providers/brevo';
-import { dequeueEmailBatch } from '../../backend/src/providers/redisQueue';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
+import { runtimeConfig } from '../../backend/src/config.js';
+import { hasInternalSecret, requireMethod, sendJson } from '../../backend/src/http.js';
+import { sendBrevoEmail } from '../../backend/src/providers/brevo.js';
+import { dequeueEmailBatch } from '../../backend/src/providers/redisQueue.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (!requireMethod(request, response, 'GET')) {

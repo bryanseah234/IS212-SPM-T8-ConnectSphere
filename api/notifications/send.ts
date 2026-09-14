@@ -1,8 +1,8 @@
-import { runtimeConfig } from '../../backend/src/config';
-import { hasInternalSecret, requireMethod, sendJson } from '../../backend/src/http';
-import { enqueueEmail } from '../../backend/src/providers/redisQueue';
-import type { EmailJob } from '../../backend/src/providers/brevo';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
+import { runtimeConfig } from '../../backend/src/config.js';
+import { hasInternalSecret, requireMethod, sendJson } from '../../backend/src/http.js';
+import { enqueueEmail } from '../../backend/src/providers/redisQueue.js';
+import type { EmailJob } from '../../backend/src/providers/brevo.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
 
 function parseEmailJob(body: unknown): EmailJob | null {
   if (!body || typeof body !== 'object') {

@@ -37,7 +37,26 @@ jobs:
         if: always()
         run: |
           echo 'Repository checks cover file hygiene, secret detection, and tooling tests.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Application lint, types, tests, builds, and deployment are not configured yet.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Application build and compiled API tests run in the separate api-runtime job.' >> "$GITHUB_STEP_SUMMARY"
+
+  api-runtime:
+    name: api-runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install locked application dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Build frontend and check backend types
+        run: npm run build
+      - name: Load compiled API handlers without provider credentials
+        run: npm run test:runtime
 
   pr-conventions:
     name: pr-conventions

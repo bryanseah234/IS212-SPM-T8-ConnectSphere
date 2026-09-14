@@ -1,4 +1,4 @@
-import type { AuthenticatedUser } from './types';
+import type { AuthenticatedUser } from './types.js';
 
 export type AccessControlRepository = {
   findUserByEmail(email: string): Promise<AuthenticatedUser | null>;

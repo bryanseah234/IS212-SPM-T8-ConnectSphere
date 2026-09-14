@@ -1,4 +1,4 @@
-import type { EventRecord } from './types';
+import type { EventRecord } from './types.js';
 
 export type EventLifecycleRepository = {
   findEventById(eventId: string): Promise<EventRecord | null>;

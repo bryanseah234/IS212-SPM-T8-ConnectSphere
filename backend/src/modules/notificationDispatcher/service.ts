@@ -1,6 +1,6 @@
-import type { NotificationDeliveryRepository } from './repository';
-import type { NotificationQueue } from './queue';
-import type { NotificationDelivery, NotificationDeliveryDraft, NotificationQueueJob } from './types';
+import type { NotificationDeliveryRepository } from './repository.js';
+import type { NotificationQueue } from './queue.js';
+import type { NotificationDelivery, NotificationDeliveryDraft, NotificationQueueJob } from './types.js';
 
 export function toQueueJob(delivery: NotificationDelivery): NotificationQueueJob {
   return {
