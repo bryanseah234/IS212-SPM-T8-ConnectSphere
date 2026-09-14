@@ -26,9 +26,23 @@ class MetadataTests(unittest.TestCase):
                 self.assertFalse(metadata.check_title(title))
 
     def test_branch_boundaries(self):
-        for branch in ("feature/42-user-profile", "fix/57-empty-form", "chore/setup-ci"):
+        for branch in (
+            "feature/42-user-profile",
+            "feature/SCRUM-26-submit-event-request",
+            "fix/SCRUM-41-layout-capacity",
+            "docs/SCRUM-86-update-backlog-source",
+            "chore/setup-ci",
+        ):
             self.assertTrue(metadata.check_branch(branch))
-        for branch in ("main", "feature/", "feature/Fix", "feature/a--b", "bryan-work"):
+        for branch in (
+            "main",
+            "feature/",
+            "feature/Fix",
+            "feature/SCRUM-submit-event-request",
+            "feature/SCRUM-26-Submit-event-request",
+            "feature/a--b",
+            "bryan-work",
+        ):
             self.assertFalse(metadata.check_branch(branch))
 
     def test_dependabot_exception_requires_bot_identity(self):

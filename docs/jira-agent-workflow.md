@@ -29,7 +29,7 @@ Use one of these methods, depending on what a teammate's agent supports:
 | Native Jira connector or MCP server | The agent already supports Jira tools | Best for reading/updating issues directly. Each teammate authorizes their own account. |
 | Jira REST API script | The agent can run local scripts but has no connector | Store credentials in local environment variables only. Commit scripts, not secrets. |
 | Jira CSV import | Direct API access is unavailable | Generate a CSV from the source workbook and import through Jira UI. Useful as a safe first load. |
-| GitHub for Jira / automation rules | The team wants PRs to update progress | Use branch names, PR titles, and commits containing Jira issue keys. |
+| GitHub for Jira / automation rules | The team wants PRs to update progress | Use branch names, commit bodies, and PR descriptions containing Jira issue keys. |
 
 This session did not expose a Jira connector, so direct Jira issue creation was
 not available here. The workflow is still written so another teammate's agent can
@@ -39,7 +39,7 @@ connect safely.
 
 Use these primary files:
 
-- `docs/CONNECTSPHERE BACKLOGS CAA 130926.xlsx`
+- `docs/CONNECTSPHERE BACKLOGS CAA 140926.xlsx`
 - `docs/BACKLOG DECISION REVIEW CAA 130926.docx`
 - `docs/ARCHITECTURE DECISION RECORDS CAA 120926.docx`
 - `docs/testing/PROJECT TEST CASES.xlsx`
@@ -85,13 +85,14 @@ hygiene and tooling.
 Use Jira issue keys consistently once the Jira project key is known:
 
 ```text
-feature/CS-123-event-request-form
-feat(frontend): CS-123 add event request form
-docs: CS-123 update organiser workflow notes
+feature/SCRUM-123-event-request-form
+feat(frontend): add event request form
+docs: update organiser workflow notes
 ```
 
 PR titles should still follow the repository's conventional format. Put the Jira
-key in the title or body, and add these links in the PR description:
+key in the branch name, commit body, or PR body, and add these links in the PR
+description:
 
 - Jira issue;
 - Figma frame or board;

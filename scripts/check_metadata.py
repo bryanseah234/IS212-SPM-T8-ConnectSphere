@@ -9,7 +9,10 @@ from pathlib import Path
 
 TYPES = "feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert"
 TITLE = re.compile(rf"(?:{TYPES})(?:\([a-z0-9][a-z0-9-]*\))?!?: \S.*")
-BRANCH = re.compile(r"(?:feature|fix|chore|docs|test|refactor|ci)/[a-z0-9]+(?:-[a-z0-9]+)*")
+BRANCH = re.compile(
+    r"(?:feature|fix|chore|docs|test|refactor|ci)/"
+    r"(?:[a-z0-9]+(?:-[a-z0-9]+)*|[A-Z][A-Z0-9]+-\d+(?:-[a-z0-9]+)*)"
+)
 
 
 def check_title(title: str) -> bool:
@@ -51,7 +54,7 @@ def main() -> int:
             return 0
         if check_branch(branch):
             return 0
-        print("Use feature/42-description, fix/57-description, or chore/setup-ci.")
+        print("Use feature/SCRUM-123-description, fix/57-description, or chore/setup-ci.")
         return 1
 
     event_path = args.value or os.environ.get("GITHUB_EVENT_PATH")
