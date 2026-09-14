@@ -104,6 +104,16 @@ export async function signOut() {
   }
 }
 
+export async function getAccessToken() {
+  const client = getSupabaseClient();
+  if (!client) {
+    return null;
+  }
+
+  const { data } = await client.auth.getSession();
+  return data.session?.access_token ?? null;
+}
+
 export function subscribeToAuth(callback: (user: AuthUser | null) => void) {
   const client = getSupabaseClient();
   if (!client) {

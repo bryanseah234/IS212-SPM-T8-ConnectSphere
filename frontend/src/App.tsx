@@ -30,6 +30,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import {
   getCurrentUser,
+  getAccessToken,
   hasSupabaseConfig,
   signInWithEmail,
   signOut,
@@ -1118,7 +1119,9 @@ function WorkspaceApp({
           </div>
         </header>
 
-        {viewMode === 'organiser-flow' ? <OrganiserRequestFlow /> : null}
+        {viewMode === 'organiser-flow' ? (
+          <OrganiserRequestFlow getAccessToken={getAccessToken} />
+        ) : null}
 
         <section className={`role-hero accent-${activeRole.accent}`}>
           <div className="role-hero-copy">

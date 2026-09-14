@@ -4,8 +4,9 @@ test.describe('application routing and login shell', () => {
   /**
    * Traceability:
    * - Story: E01-S01 Log in to the system
-   * - Acceptance evidence: users can reach the Login page from the public entry point.
-   * - Implementation: frontend route shell in SCRUM-89.
+   * - Acceptance criterion: the Login page is reachable from the public entry point.
+   * - Automated test script: tests/e2e/app-routing.spec.ts.
+   * - Implementation evidence: SCRUM-89, frontend route shell, PR #35.
    */
   test('public landing links to login', async ({ page }) => {
     await page.goto('/');
@@ -25,8 +26,9 @@ test.describe('application routing and login shell', () => {
   /**
    * Traceability:
    * - Story: E01-S01 Log in to the system
-   * - Acceptance evidence: unauthenticated users cannot open protected role workspaces.
-   * - Implementation: frontend protected route shell in SCRUM-89.
+   * - Acceptance criterion: unauthenticated users cannot open protected role workspaces.
+   * - Automated test script: tests/e2e/app-routing.spec.ts.
+   * - Implementation evidence: SCRUM-89, protected route guard, PR #35.
    */
   test('protected app route redirects signed-out users to login', async ({ page }) => {
     await page.goto('/app/organiser');
@@ -38,8 +40,9 @@ test.describe('application routing and login shell', () => {
   /**
    * Traceability:
    * - Story: E01-S01 Log in to the system
-   * - Acceptance evidence: a valid local demo organiser credential reaches the organiser workspace.
-   * - Implementation: Supabase-ready auth adapter with demo fallback in SCRUM-89.
+   * - Acceptance criterion: a valid organiser credential reaches the organiser workspace.
+   * - Automated test script: tests/e2e/app-routing.spec.ts.
+   * - Implementation evidence: SCRUM-89/SCRUM-90, Supabase-ready auth adapter, PR #35.
    */
   test('demo organiser login opens the organiser workspace', async ({ page }) => {
     await page.goto('/login');
@@ -55,8 +58,9 @@ test.describe('application routing and login shell', () => {
   /**
    * Traceability:
    * - Story: E01-S01 Log in to the system
-   * - Acceptance evidence: invalid credentials keep the user signed out with a generic error.
-   * - Implementation: login form error handling in SCRUM-89.
+   * - Acceptance criterion: invalid credentials keep the user signed out with a generic error.
+   * - Automated test script: tests/e2e/app-routing.spec.ts.
+   * - Implementation evidence: SCRUM-89/SCRUM-90, login form error handling, PR #35.
    */
   test('invalid login shows a generic error', async ({ page }) => {
     await page.goto('/login');
