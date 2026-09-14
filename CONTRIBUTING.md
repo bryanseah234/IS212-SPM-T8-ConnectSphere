@@ -79,11 +79,11 @@ shared branches or hide failures with `--no-verify`.
 ## Shared practices
 
 - Review and stage intended files; keep credentials, `.env`, dependency folders,
-  build outputs, and local databases out of Git. Commit placeholder `.env.example`
+  build outputs, and local databases out of Git. Commit placeholder `.env.template`
   files when configuration is known, plus dependency lockfiles and migrations.
 - Keep frontend and backend configuration separate. Anything bundled into the
   frontend is public; private credentials belong on the server.
-- Keep real secrets out of Git. Document safe placeholder names in `.env.example`
+- Keep real secrets out of Git. Document safe placeholder names in `.env.template`
   and follow [the security policy](SECURITY.md) if a credential is exposed.
 - Test public behaviour, rejection/error paths, permissions, and data boundaries.
   Keep normal tests independent of paid external services and real personal data.

@@ -1,8 +1,7 @@
 # Free-tier hosting plan
 
-This plan records a practical zero-cost deployment path for ConnectSphere before
-the application scaffold exists. It is a planning document, not proof that the
-app is deployed.
+This plan records a practical zero-cost deployment path for ConnectSphere. It is
+a planning document, not proof that the app is deployed.
 
 ## Recommended free-tier stack
 
@@ -10,7 +9,7 @@ app is deployed.
 | --- | --- | --- |
 | Frontend and API deployment | Vercel Hobby | GitHub previews, production deploys, Functions, Cron Jobs, Queues, and Python/JavaScript support. |
 | PostgreSQL, auth, file storage | Supabase Free | Matches the PostgreSQL decision and can support auth, storage, migrations, and local CLI workflows. |
-| Async queue / cache | Vercel Queues first, Upstash Redis if Redis remains a hard ADR requirement | Vercel Queues fits serverless workers; Upstash Redis matches the Redis plan recorded in architecture docs. |
+| Async queue / cache | Upstash Redis | The team chose Upstash Redis as the queue transport; PostgreSQL remains the durable outbox source of truth. |
 | Transactional email | Brevo or Resend | The previous `sgStyleSnap2025` project used Brevo successfully; Resend is also simple for developer email. |
 | Project management sync | Jira with per-user credentials | Each teammate or agent should connect using their own Jira access; no shared tokens in Git. |
 
@@ -19,22 +18,28 @@ app is deployed.
 Vercel can run background work, but not as a permanently running free-tier worker
 process. Use Vercel's serverless model:
 
-- API routes or server functions enqueue work;
-- Vercel Queues trigger private consumers for async processing;
+- API routes or server functions write durable outbox rows;
+- relay endpoints publish committed outbox rows to Upstash Redis;
 - Cron Jobs call scheduled endpoints for periodic checks;
 - database rows remain the source of truth for idempotency and retry safety.
+
+On Vercel Hobby, committed cron schedules must stay daily. The current
+`vercel.json` therefore uses a once-per-day schedule so free-tier preview and
+production deployments can pass. If the team needs near-real-time notification
+relay runs, record a later decision to use a paid Vercel schedule, an external
+scheduler, or a worker process outside Vercel Hobby.
 
 For ConnectSphere, the clean pattern is:
 
 1. Write the business change and notification/outbox row in PostgreSQL.
-2. Enqueue or schedule delivery after the database transaction is committed.
+2. Publish to Upstash Redis only after the database transaction is committed.
 3. A queue consumer sends email and updates delivery status.
 4. Cron handles periodic jobs such as event completion checks or stuck-delivery
    recovery.
 
-If the team keeps Redis as an architectural requirement, use Upstash Redis as the
-free-tier Redis provider. If the team accepts Vercel Queues as the managed queue,
-record that as a new ADR because it changes the earlier Redis plan.
+Do not publish notifications directly from business feature code. Feature code
+should create the business change and its outbox row together; the relay owns
+Redis publishing.
 
 ## Email provider decision
 
