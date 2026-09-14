@@ -1,22 +1,17 @@
-## What and why
+## Summary
 
-Describe the problem and resulting behaviour.
+<!-- What does this PR do and why? -->
 
-Closes #<!-- issue number, or explain why no issue is needed -->
+## Changes
 
-## Verification
+<!-- List the key changes made -->
 
-List actual commands and results. Identify anything not tested.
-Attach screenshots for visible UI changes and note migrations or configuration changes.
+## Testing
+
+<!-- How was this tested? -->
 
 ## Checklist
 
-- [ ] This PR contains one logical change and has a conventional title.
-- [ ] I ran the relevant checks and added regression tests where needed.
-- [ ] I updated documentation if setup, behaviour, or contracts changed.
-- [ ] I reviewed the diff for secrets and generated files.
-- [ ] Significant reviewer findings are resolved or answered with a reason.
-
-## Follow-ups
-
-Record limitations or linked follow-up issues, if any.
+- [ ] No debug code or console logs left behind
+- [ ] No secrets or credentials committed
+- [ ] Documentation updated if behaviour changed
