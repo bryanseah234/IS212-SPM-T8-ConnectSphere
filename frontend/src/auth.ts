@@ -54,7 +54,9 @@ function demoSignIn(email: string, password: string): SignInResult {
     'attendee@example.com': 'attendee',
   };
 
-  if (password !== 'connectsphere-demo' || !demoUsers[normalisedEmail]) {
+  const acceptedDemoPasswords = ['connectsphere-demo', 'ValidPass123'];
+
+  if (!acceptedDemoPasswords.includes(password) || !demoUsers[normalisedEmail]) {
     return { ok: false, message: 'Email or password is incorrect.' };
   }
 
