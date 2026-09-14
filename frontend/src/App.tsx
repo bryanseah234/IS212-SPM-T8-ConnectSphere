@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { type FormEvent, useEffect, useMemo, useState } from 'react';
 import {
   AlertTriangle,
+  ArrowRight,
   Bell,
   CalendarDays,
   CheckCircle2,
@@ -27,6 +28,14 @@ import {
   Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import {
+  getCurrentUser,
+  hasSupabaseConfig,
+  signInWithEmail,
+  signOut,
+  subscribeToAuth,
+  type AuthUser,
+} from './auth';
 import { OrganiserRequestFlow } from './features/organiser/OrganiserRequestFlow';
 
 type Tone = 'success' | 'warning' | 'info' | 'danger' | 'future' | 'neutral';
@@ -53,6 +62,16 @@ type RoleArea = {
   summary: string;
   screens: Screen[];
 };
+
+type AppRoute =
+  | { name: 'landing' }
+  | { name: 'login' }
+  | { name: 'app'; roleId: string };
+
+type AuthState =
+  | { status: 'loading'; user: null }
+  | { status: 'signed-out'; user: null }
+  | { status: 'signed-in'; user: AuthUser };
 
 const roleAreas: RoleArea[] = [
   {
@@ -697,9 +716,314 @@ function IconButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
   );
 }
 
+function parseRoute(): AppRoute {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (path === '/') {
+    return { name: 'landing' };
+  }
+
+  if (path === '/login') {
+    return { name: 'login' };
+  }
+
+  if (path === '/app') {
+    return { name: 'app', roleId: 'organiser' };
+  }
+
+  if (path.startsWith('/app/')) {
+    const roleId = path.split('/')[2] ?? 'organiser';
+    return { name: 'app', roleId };
+  }
+
+  return { name: 'landing' };
+}
+
+function toPath(route: AppRoute) {
+  if (route.name === 'landing') {
+    return '/';
+  }
+
+  if (route.name === 'login') {
+    return '/login';
+  }
+
+  return `/app/${route.roleId}`;
+}
+
 function App() {
+  const [route, setRoute] = useState<AppRoute>(() => parseRoute());
+  const [authState, setAuthState] = useState<AuthState>({ status: 'loading', user: null });
+
+  useEffect(() => {
+    let active = true;
+
+    getCurrentUser().then((user) => {
+      if (!active) {
+        return;
+      }
+
+      setAuthState(user ? { status: 'signed-in', user } : { status: 'signed-out', user: null });
+    });
+
+    const unsubscribe = subscribeToAuth((user) =>
+      setAuthState(user ? { status: 'signed-in', user } : { status: 'signed-out', user: null }),
+    );
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => setRoute(parseRoute());
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigate = (nextRoute: AppRoute, replace = false) => {
+    const path = toPath(nextRoute);
+    if (window.location.pathname !== path) {
+      window.history[replace ? 'replaceState' : 'pushState']({}, '', path);
+    }
+    setRoute(nextRoute);
+  };
+
+  useEffect(() => {
+    if (authState.status === 'signed-out' && route.name === 'app') {
+      navigate({ name: 'login' }, true);
+    }
+  });
+
+  if (route.name === 'landing') {
+    return <LandingPage onNavigate={navigate} />;
+  }
+
+  if (route.name === 'login') {
+    return (
+      <LoginPage
+        authState={authState}
+        onSignedIn={(user) => {
+          setAuthState({ status: 'signed-in', user });
+          navigate({ name: 'app', roleId: user.roleId }, true);
+        }}
+      />
+    );
+  }
+
+  if (authState.status === 'loading') {
+    return <LoadingPage />;
+  }
+
+  if (authState.status === 'signed-out') {
+    return <LoginPage authState={authState} onSignedIn={() => undefined} />;
+  }
+
+  return (
+    <WorkspaceApp
+      authUser={authState.user}
+      initialRoleId={route.roleId}
+      onRoleChange={(roleId) => navigate({ name: 'app', roleId })}
+      onSignOut={async () => {
+        await signOut();
+        setAuthState({ status: 'signed-out', user: null });
+        navigate({ name: 'login' }, true);
+      }}
+    />
+  );
+}
+
+function LandingPage({ onNavigate }: { onNavigate: (route: AppRoute) => void }) {
+  return (
+    <main className="landing-page">
+      <nav className="landing-nav" aria-label="Public navigation">
+        <a className="brand-lockup landing-brand" href="/" onClick={(event) => event.preventDefault()}>
+          <img className="brand-mark" src="/favicon.svg" alt="" aria-hidden="true" />
+          <span>
+            <strong>SG ConnectSphere</strong>
+            <small>Event planning operations</small>
+          </span>
+        </a>
+        <button className="secondary-action" type="button" onClick={() => onNavigate({ name: 'login' })}>
+          Staff login
+        </button>
+      </nav>
+
+      <section className="landing-hero">
+        <div className="landing-copy">
+          <p className="eyebrow">Venue booking, registration, and delivery in one workspace</p>
+          <h1>Plan campus events without losing the thread.</h1>
+          <p>
+            ConnectSphere keeps organisers, coordinators, venue staff, technical support,
+            and attendees aligned from request intake to event completion.
+          </p>
+          <div className="landing-actions">
+            <button className="primary-action" type="button" onClick={() => onNavigate({ name: 'login' })}>
+              Login to workspace
+              <ArrowRight size={17} aria-hidden="true" />
+            </button>
+            <button className="secondary-action" type="button" onClick={() => onNavigate({ name: 'app', roleId: 'organiser' })}>
+              Preview app shell
+            </button>
+          </div>
+        </div>
+
+        <div className="landing-panel" aria-label="Operations preview">
+          <div className="landing-panel-top">
+            <StatusPill tone="success">Release 1</StatusPill>
+            <span>Today</span>
+          </div>
+          <div className="landing-kpis">
+            <span>
+              <strong>47</strong>
+              Stories planned
+            </span>
+            <span>
+              <strong>5</strong>
+              Roles
+            </span>
+            <span>
+              <strong>3s</strong>
+              Target response
+            </span>
+          </div>
+          <div className="landing-flow-list">
+            {['Request intake', 'Venue and equipment planning', 'Registration and notifications'].map((item) => (
+              <div className="activity-row" key={item}>
+                <CheckCircle2 size={16} aria-hidden="true" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function LoginPage({
+  authState,
+  onSignedIn,
+}: {
+  authState: AuthState;
+  onSignedIn: (user: AuthUser) => void;
+}) {
+  const [email, setEmail] = useState('organiser_a@clienta.com');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (authState.status === 'signed-in') {
+      onSignedIn(authState.user);
+    }
+  }, [authState, onSignedIn]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError('');
+    setSubmitting(true);
+    const result = await signInWithEmail(email, password);
+    setSubmitting(false);
+
+    if (result.ok) {
+      onSignedIn(result.user);
+      return;
+    }
+
+    setError(result.message);
+  };
+
+  return (
+    <main className="login-page">
+      <section className="login-panel">
+        <div className="brand-lockup">
+          <img className="brand-mark" src="/favicon.svg" alt="" aria-hidden="true" />
+          <div>
+            <strong>SG ConnectSphere</strong>
+            <span>Secure workspace</span>
+          </div>
+        </div>
+
+        <div>
+          <p className="eyebrow">Login</p>
+          <h1>Continue to your event operations workspace.</h1>
+          <p className="login-copy">
+            {hasSupabaseConfig()
+              ? 'Use your Supabase-backed account credentials.'
+              : 'Local demo mode is active until public Supabase env vars are configured.'}
+          </p>
+        </div>
+
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="field-control">
+            <span>Email</span>
+            <input
+              autoComplete="email"
+              data-testid="login-email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </label>
+          <label className="field-control">
+            <span>Password</span>
+            <input
+              autoComplete="current-password"
+              data-testid="login-password"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </label>
+          {error ? (
+            <p className="login-error" role="alert">
+              {error}
+            </p>
+          ) : null}
+          <button className="primary-action" data-testid="login-submit" disabled={isSubmitting} type="submit">
+            {isSubmitting ? 'Checking...' : 'Login'}
+            <ArrowRight size={17} aria-hidden="true" />
+          </button>
+        </form>
+
+        {!hasSupabaseConfig() ? <p className="login-hint">Demo password: connectsphere-demo</p> : null}
+      </section>
+    </main>
+  );
+}
+
+function LoadingPage() {
+  return (
+    <main className="login-page">
+      <section className="login-panel">
+        <div className="brand-lockup">
+          <img className="brand-mark" src="/favicon.svg" alt="" aria-hidden="true" />
+          <div>
+            <strong>SG ConnectSphere</strong>
+            <span>Loading session</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function WorkspaceApp({
+  authUser,
+  initialRoleId,
+  onRoleChange,
+  onSignOut,
+}: {
+  authUser: AuthUser;
+  initialRoleId: string;
+  onRoleChange: (roleId: string) => void;
+  onSignOut: () => void;
+}) {
   const [viewMode, setViewMode] = useState<'inventory' | 'organiser-flow'>('organiser-flow');
-  const [roleId, setRoleId] = useState(roleAreas[0].id);
+  const [roleId, setRoleId] = useState(
+    roleAreas.some((role) => role.id === initialRoleId) ? initialRoleId : 'organiser',
+  );
   const activeRole = useMemo(
     () => roleAreas.find((role) => role.id === roleId) ?? roleAreas[0],
     [roleId],
@@ -708,8 +1032,15 @@ function App() {
   const activeScreen =
     activeRole.screens.find((screen) => screen.id === screenId) ?? activeRole.screens[0];
 
+  useEffect(() => {
+    if (roleAreas.some((role) => role.id === initialRoleId)) {
+      setRoleId(initialRoleId);
+    }
+  }, [initialRoleId]);
+
   function selectRole(nextRole: RoleArea) {
     setRoleId(nextRole.id);
+    onRoleChange(nextRole.id);
     setScreenId(nextRole.screens[0].id);
   }
 
@@ -745,6 +1076,9 @@ function App() {
             <span>{totals.future} future backlog</span>
           </div>
         </section>
+        <button className="secondary-action sign-out-action" type="button" onClick={onSignOut}>
+          Sign out
+        </button>
       </aside>
 
       <section className="workspace">
@@ -752,6 +1086,9 @@ function App() {
           <div>
             <p className="eyebrow">Release 1 application shell</p>
             <h1>Event planning operations workspace</h1>
+            <p className="session-copy">
+              Signed in as {authUser.email} through {authUser.provider}.
+            </p>
           </div>
           <div className="topbar-actions" aria-label="Application actions">
             <div className="view-switcher" aria-label="Frontend view mode">
@@ -768,6 +1105,7 @@ function App() {
                 onClick={() => {
                   setViewMode('organiser-flow');
                   setRoleId('organiser');
+                  onRoleChange('organiser');
                   setScreenId('create-request');
                 }}
               >
