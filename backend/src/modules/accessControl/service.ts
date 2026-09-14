@@ -65,19 +65,18 @@ export function canAccessClientOrganisation(
     return activeDecision;
   }
 
-  if (!targetClientOrgId) {
-    return { allowed: true };
-  }
-
   if (user.role !== 'event_organiser') {
     return { allowed: true };
   }
 
-  return user.clientOrgId === targetClientOrgId
+  return Boolean(user.clientOrgId && targetClientOrgId) && user.clientOrgId === targetClientOrgId
     ? { allowed: true }
     : { allowed: false, reason: 'wrong_client_organisation' };
 }
 
 export function scopeClientOrganisationFilter(user: AuthenticatedUser) {
+  if (user.role === 'event_organiser' && !user.clientOrgId) {
+    throw new Error('Client organisation membership required');
+  }
   return user.role === 'event_organiser' ? { clientOrgId: user.clientOrgId } : {};
 }

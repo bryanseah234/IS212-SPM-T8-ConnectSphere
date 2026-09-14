@@ -1,3 +1,5 @@
+import { query } from '../modules/eventVisibility/runtime';
+import { permittedDelivery } from '../modules/eventVisibility/service';
 import { requireEnv, runtimeConfig } from '../config';
 
 export type EmailJob = {
@@ -8,6 +10,9 @@ export type EmailJob = {
 };
 
 export async function sendBrevoEmail(job: EmailJob) {
+  const permitted = await permittedDelivery(query, job.notificationId, job.to);
+  if (!permitted) throw new Error('Notification delivery access denied');
+  job = permitted;
   const apiKey = requireEnv(runtimeConfig.brevoApiKey, 'BREVO_API_KEY');
   const senderEmail = requireEnv(runtimeConfig.emailFrom, 'EMAIL_FROM');
 

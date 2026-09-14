@@ -1,0 +1,70 @@
+import type { AuthenticatedUser } from '../accessControl/types';
+import { canActAsRole } from '../accessControl/service';
+
+export type Query = <T extends Record<string, unknown> = Record<string, unknown>>(
+  sql: string, values?: unknown[],
+) => Promise<{ rows: T[] }>;
+
+export class AccessError extends Error {
+  constructor(public status: number, message: string) { super(message); }
+}
+
+export function requireOrganiser(user: AuthenticatedUser | undefined): string {
+  if (!user) throw new AccessError(401, 'Sign in to continue.');
+  if (!canActAsRole(user, ['event_organiser']).allowed || !user.clientOrgId) {
+    throw new AccessError(403, 'Access denied. Contact your administrator about your organisation access.');
+  }
+  return user.clientOrgId;
+}
+
+const projection = `e.id, e.event_code, e.title, e.description, e.status,
+  lower(e.event_range) AS starts_at, u.full_name AS creator_name`;
+
+export async function listEvents(query: Query, user: AuthenticatedUser, search = '') {
+  const org = requireOrganiser(user);
+  // Position treats search text literally, including SQL wildcard characters.
+  return (await query(`SELECT ${projection} FROM events e
+    JOIN users u ON u.id = e.organiser_id
+    WHERE e.client_org_id = $1 AND
+      (strpos(lower(e.title), lower($2)) > 0 OR strpos(lower(coalesce(e.event_code, '')), lower($2)) > 0)
+    ORDER BY lower(e.event_range), e.id LIMIT 100`, [org, search.slice(0, 240)])).rows;
+}
+
+export async function getEvent(query: Query, user: AuthenticatedUser, identifier: string) {
+  const org = requireOrganiser(user);
+  const result = await query(`SELECT ${projection} FROM events e
+    JOIN users u ON u.id = e.organiser_id
+    WHERE e.client_org_id = $1 AND (e.id::text = $2 OR e.event_code = $2)`, [org, identifier]);
+  if (result.rows[0]) return result.rows[0];
+  // Separate committed write: throwing a denial must not roll back its audit entry.
+  // Unknown IDs receive the same response, without revealing whether an event exists.
+  await query(`INSERT INTO audit_logs (actor_id, entity_type, entity_id, event_id, action, new_value)
+    SELECT $1, 'event', coalesce(e.id, gen_random_uuid()), e.id, 'Access Denied', $2
+    FROM (SELECT 1) anchor LEFT JOIN events e ON e.id::text = $2 OR e.event_code = $2`,
+  [user.id, identifier]);
+  throw new AccessError(403, 'Access denied. This event is not available to your organisation.');
+}
+
+export async function listNotifications(query: Query, user: AuthenticatedUser) {
+  const org = requireOrganiser(user);
+  // Eventless messages are excluded because their text cannot be attributed safely.
+  return (await query(`SELECT n.id, n.title, n.message, n.event_id, n.created_at, n.is_read
+    FROM notifications n JOIN events e ON e.id = n.event_id
+    WHERE n.user_id = $1 AND e.client_org_id = $2
+    ORDER BY n.created_at DESC, n.id LIMIT 100`, [user.id, org])).rows;
+}
+
+export async function permittedDelivery(query: Query, notificationId: string | undefined, email: string) {
+  if (!notificationId) return null;
+  const result = await query(`SELECT n.id, n.title, n.message FROM notifications n
+    JOIN users u ON u.id = n.user_id JOIN events e ON e.id = n.event_id
+    WHERE n.id::text = $1 AND u.email = $2 AND u.is_active
+      AND u.failed_login_count < 5 AND (u.locked_until IS NULL OR u.locked_until <= now())
+      AND (u.role <> 'event_organiser' OR (u.client_org_id IS NOT NULL AND u.client_org_id = e.client_org_id))`,
+  [notificationId, email]);
+  const notification = result.rows[0];
+  if (!notification) return null;
+  const escape = (value: unknown) => String(value).replace(/[&<>"']/g, character =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]!);
+  return { to: email, notificationId, subject: String(notification.title), html: `<p>${escape(notification.message)}</p>` };
+}

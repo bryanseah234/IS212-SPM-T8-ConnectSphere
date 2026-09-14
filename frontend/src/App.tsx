@@ -27,6 +27,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { ClientEvents } from './features/organiser/ClientEvents';
 import { OrganiserRequestFlow } from './features/organiser/OrganiserRequestFlow';
 
 type Tone = 'success' | 'warning' | 'info' | 'danger' | 'future' | 'neutral';
@@ -698,6 +699,11 @@ function IconButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
 }
 
 function App() {
+  if (window.location.pathname === '/events' || window.location.pathname.startsWith('/events/')) return <ClientEvents />;
+  return <PrototypeApp />;
+}
+
+function PrototypeApp() {
   const [viewMode, setViewMode] = useState<'inventory' | 'organiser-flow'>('inventory');
   const [roleId, setRoleId] = useState(roleAreas[0].id);
   const activeRole = useMemo(
@@ -716,6 +722,7 @@ function App() {
   return (
     <main className="app-shell">
       <aside className="sidebar" aria-label="Batch 5 role navigation">
+        <a href="/events">My organisation’s events</a>
         <div className="brand-lockup">
           <div className="brand-mark">SG</div>
           <div>

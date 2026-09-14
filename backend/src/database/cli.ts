@@ -1,3 +1,4 @@
+import { hashPassword } from '../modules/accessControl/passwords';
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -12,6 +13,7 @@ const migrationsDir = join(backendRoot, 'database', 'migrations');
 const seedCredential = 'ValidPass123';
 
 const managedTables = [
+  'auth_sessions',
   'audit_logs',
   'notification_deliveries',
   'notifications',
@@ -438,7 +440,7 @@ async function seed(client: Client) {
           userIds.get(user.key),
           user.clientOrg ? orgIds.get(user.clientOrg) : null,
           user.email,
-          passwordHash(seedCredential),
+          await hashPassword(seedCredential),
           user.fullName,
           user.role,
           user.contactNumber,
@@ -783,9 +785,7 @@ function stableUuid(value: string) {
   ].join('-');
 }
 
-function passwordHash(password: string) {
-  return `seed-sha256:${createHash('sha256').update(password).digest('hex')}`;
-}
+
 
 main().catch((error: unknown) => {
   console.error(error instanceof Error ? error.message : error);

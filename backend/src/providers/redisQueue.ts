@@ -1,3 +1,5 @@
+import { query } from '../modules/eventVisibility/runtime';
+import { permittedDelivery } from '../modules/eventVisibility/service';
 import { Redis } from '@upstash/redis';
 import { requireEnv, runtimeConfig } from '../config';
 import type { NotificationQueue } from '../modules/notificationDispatcher';
@@ -12,6 +14,9 @@ function createRedis() {
 }
 
 export async function enqueueEmail(job: EmailJob) {
+  const permitted = await permittedDelivery(query, job.notificationId, job.to);
+  if (!permitted) throw new Error('Notification delivery access denied');
+  job = permitted;
   const redis = createRedis();
   const item = JSON.stringify({
     ...job,
