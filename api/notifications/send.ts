@@ -1,26 +1,9 @@
 import { runtimeConfig } from '../../backend/src/config.js';
 import { hasInternalSecret, requireMethod, sendJson } from '../../backend/src/http.js';
-import { enqueueEmail } from '../../backend/src/providers/redisQueue.js';
-import type { EmailJob } from '../../backend/src/providers/brevo.js';
+import { inTransaction, notificationDatabase } from '../../backend/src/database/pool.js';
+import { isDeliveryId } from '../../backend/src/modules/notificationDispatcher/durable.js';
+import { prepareCommittedDelivery } from '../../backend/src/modules/notificationDispatcher/postgres.js';
 import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
-
-function parseEmailJob(body: unknown): EmailJob | null {
-  if (!body || typeof body !== 'object') {
-    return null;
-  }
-
-  const payload = body as Partial<EmailJob>;
-  if (!payload.to || !payload.subject || !payload.html) {
-    return null;
-  }
-
-  return {
-    to: String(payload.to),
-    subject: String(payload.subject),
-    html: String(payload.html),
-    notificationId: payload.notificationId ? String(payload.notificationId) : undefined,
-  };
-}
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (!requireMethod(request, response, 'POST')) {
@@ -32,19 +15,20 @@ export default async function handler(request: VercelRequest, response: VercelRe
     return;
   }
 
-  const job = parseEmailJob(request.body);
-  if (!job) {
+  const id = (request.body as { deliveryId?: unknown } | undefined)?.deliveryId;
+  if (!isDeliveryId(id)) {
     sendJson(response, 400, {
       error: 'invalid_payload',
-      required: ['to', 'subject', 'html'],
+      required: ['deliveryId'],
     });
     return;
   }
 
-  const queueLength = await enqueueEmail(job);
-  sendJson(response, 202, {
-    queued: true,
-    queue: runtimeConfig.notificationQueueName,
-    queueLength,
-  });
+  try {
+    const delivery = await inTransaction(notificationDatabase(), (client) => prepareCommittedDelivery(client, id));
+    sendJson(response, 202, { committed: true, deliveryId: delivery.id, status: delivery.status });
+  } catch (error) {
+    const missing = error instanceof Error && error.message === 'delivery_not_found';
+    sendJson(response, missing ? 404 : 503, { error: missing ? 'delivery_not_found' : 'notification_storage_unavailable' });
+  }
 }
