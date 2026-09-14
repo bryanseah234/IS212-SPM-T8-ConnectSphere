@@ -6,7 +6,7 @@
   "crons": [
     {
       "path": "/api/cron/outbox-relay",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 0 * * *"
     }
   ],
   "rewrites": [
