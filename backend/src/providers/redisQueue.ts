@@ -1,5 +1,7 @@
 import { Redis } from '@upstash/redis';
 import { requireEnv, runtimeConfig } from '../config';
+import type { NotificationQueue } from '../modules/notificationDispatcher';
+import type { NotificationQueueJob } from '../modules/notificationDispatcher';
 import type { EmailJob } from './brevo';
 
 function createRedis() {
@@ -33,4 +35,17 @@ export async function dequeueEmailBatch(limit = 5): Promise<EmailJob[]> {
   }
 
   return jobs;
+}
+
+export function createRedisNotificationQueue(): NotificationQueue {
+  return {
+    async publish(job: NotificationQueueJob) {
+      await enqueueEmail({
+        to: job.to,
+        subject: job.subject,
+        html: job.html,
+        notificationId: job.notificationId ?? job.deliveryId,
+      });
+    },
+  };
 }

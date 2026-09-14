@@ -6,6 +6,9 @@ TypeScript backend scaffold for Vercel Functions and provider integration seams.
 
 - API handlers live in `api/` so Vercel can deploy them as serverless functions.
 - Shared backend code lives in `backend/src/`.
+- Module contracts live in `backend/src/modules/`; they define repository,
+  service, access-control, audit, status, and notification seams without choosing
+  a real auth provider or implementing story behaviour.
 - Upstash Redis is the queued notification transport.
 - Brevo is the initial transactional email provider.
 - Supabase/PostgreSQL variables are reserved in `.env.template`; database
