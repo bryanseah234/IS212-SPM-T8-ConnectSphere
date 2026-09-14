@@ -56,10 +56,16 @@ export async function listNotifications(query: Query, user: AuthenticatedUser) {
 
 export async function permittedDelivery(query: Query, notificationId: string | undefined, email: string) {
   if (!notificationId) return null;
-  const result = await query(`SELECT n.id, n.title, n.message FROM notifications n
+  const result = await query(`SELECT n.id,
+      CASE WHEN u.role = 'attendee' THEN p.name ELSE n.title END AS title,
+      CASE WHEN u.role = 'attendee' THEN concat(p.name, ' | ', p.starts_at, ' - ', p.ends_at, ' | ', p.venue_name, ' | ', p.venue_location)
+        ELSE n.message END AS message FROM notifications n
     JOIN users u ON u.id = n.user_id JOIN events e ON e.id = n.event_id
+    LEFT JOIN event_publications p ON p.event_id = e.id
+    LEFT JOIN event_registrations r ON r.event_id = e.id AND r.attendee_id = u.id
     WHERE n.id::text = $1 AND u.email = $2 AND u.is_active
       AND u.failed_login_count < 5 AND (u.locked_until IS NULL OR u.locked_until <= now())
+      AND (u.role <> 'attendee' OR (p.event_id IS NOT NULL AND r.status = 'registered'))
       AND (u.role <> 'event_organiser' OR (u.client_org_id IS NOT NULL AND u.client_org_id = e.client_org_id))`,
   [notificationId, email]);
   const notification = result.rows[0];
