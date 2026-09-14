@@ -1,17 +1,18 @@
 # Testing References
 
 This folder holds testing plans and imported scaffolds that are useful for
-planning, but are not active application tests yet.
+planning. The active runnable Playwright scaffold now lives in `tests/e2e/`,
+with this folder keeping the source reference copy.
 
-The frontend stack is still undecided. Do not treat the Playwright scaffold in
-`frontend-verification-scaffold-v5/` as runnable CI until the team records the
-frontend stack decision, adds the required package manifest and lockfile, and
-promotes the relevant files into the real test locations.
+Do not implement story assertions in the reference copy under
+`frontend-verification-scaffold-v5/`. Update `docs/testing/PROJECT TEST
+CASES.xlsx` first, then regenerate/promote the matching `test.fixme()` stubs in
+`tests/e2e/` so the runnable scaffold remains traceable to the workbook.
 
 Current scaffold snapshot:
 
 - 11 Playwright spec files.
-- 222 `test.fixme()` case stubs.
-- 26 cases still need a human to confirm the matching acceptance scenario.
+- 227 `test.fixme()` case stubs from `PROJECT TEST CASES.xlsx`.
+- 454 skipped Playwright cases when run across desktop and mobile projects.
 - `github-workflow.example.yml` is an example only, not an active GitHub Actions
   workflow.

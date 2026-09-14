@@ -1,13 +1,13 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
-// E08 - 14 cases. Generated from IS212_PROJECT_TEST_CASES.xlsx.
+// E08 - 15 cases. Generated from docs/testing/PROJECT TEST CASES.xlsx.
 // Each test.fixme() is a specification. Remove .fixme once implemented.
 
-test.describe('E08-S03 - Confirm an event', () => {
+test.describe("E08-S03", () => {
 
   /**
    * TC_E08S03_01
-   * AC:      Scenario 5 - Organiser sees confirmed arrangements
+   * AC:      E08-S03 - Scenario 1 (All arrangements complete, event confirmed)
    * Sprint:  3.0
    *
    * Pre-conditions:
@@ -19,112 +19,109 @@ test.describe('E08-S03 - Confirm an event', () => {
    * Expected result:
    *   The status becomes "Confirmed", and organiser_a@clienta.com is notified with the confirmed details
    */
-  test.fixme('TC_E08S03_01 - Verify that confirming an event where every event has a confirmed venue and full equipment re', async ({ page }) => {
+  test.fixme("TC_E08S03_01 - Verify that confirming an event where every event has a confirmed venue and full equipment reservation should set its status to Confirmed and notify the Organiser", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Charity Run"
     // 3. Click "Confirm Event"
     // 4. Check the status and organiser_a@clienta.com's notifications
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S03_02
-   * AC:      Scenario 2 - Missing venue blocks confirmation
+   * AC:      E08-S03 - Scenario 2 (Missing venue blocks confirmation)
    * Sprint:  3.0
    *
    * Pre-conditions:
-   *   Event "Tech Conference 2026" has Event 1 with a confirmed venue, but Event 2 has no confirmed venue yet
+   *   Event "Tech Conference 2026" has the event with a confirmed venue, but the event has no confirmed venue yet
    *
    * Test data:
-   *   Event 1: venue confirmed; Event 2: no venue
+   *   the event: venue confirmed | the event: no venue
    *
    * Expected result:
-   *   Confirmation is blocked; the message lists "Event 2" as missing a confirmed venue
+   *   Confirmation is blocked; the message lists "the event" as missing a confirmed venue
    */
-  test.fixme('TC_E08S03_02 - Verify that attempting to confirm an event while an event is missing a confirmed venue should ', async ({ page }) => {
+  test.fixme("TC_E08S03_02 - Verify that attempting to confirm an event while a event is missing a confirmed venue should be blocked with the outstanding event named", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Tech Conference 2026"
     // 3. Click "Confirm Event"
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S03_03
-   * AC:      Scenario 3 - Partial equipment blocks confirmation
+   * AC:      E08-S03 - Scenario 3 (Partial equipment blocks confirmation)
    * Sprint:  3.0
    *
    * Pre-conditions:
-   *   Event "Tech Conference 2026" has all events with confirmed venues, but Event 2's "Projector" reservation is partial (2 of 3 requested)
+   *   Event "Tech Conference 2026" has all events with confirmed venues, but the event's "Projector" reservation is partial (2 of 3 requested)
    *
    * Test data:
-   *   Event 2: Projector reserved 2 of 3 requested
+   *   the event: Projector reserved 2 of 3 requested
    *
    * Expected result:
-   *   Confirmation is blocked; the message shows Event 2's outstanding quantity of 1 "Projector" unit
+   *   Confirmation is blocked; the message shows the event's outstanding quantity of 1 "Projector" unit
    */
-  test.fixme('TC_E08S03_03 - Verify that attempting to confirm an event while an event has only a partial equipment reserva', async ({ page }) => {
+  test.fixme("TC_E08S03_03 - Verify that attempting to confirm an event while a event has only a partial equipment reservation should be blocked with the outstanding quantity shown", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Tech Conference 2026"
     // 3. Click "Confirm Event"
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S03_04
-   * AC:      Scenario 4 - Outstanding support assignment blocks confirmation
+   * AC:      E08-S03 - Scenario 5 (Outstanding support assignment blocks confirmation)
    * Sprint:  3.0
    *
    * Pre-conditions:
-   *   All events of "Tech Conference 2026" have confirmed venues and full equipment, but Event 1's technical support request has no staff assigned
+   *   All events of "Tech Conference 2026" have confirmed venues and full equipment, but the event's technical support request has no staff assigned
    *
    * Test data:
-   *   Event 1: technical support requested, no staff assigned
+   *   the event: technical support requested, no staff assigned
    *
    * Expected result:
-   *   Confirmation is blocked due to Event 1's outstanding technical support assignment
+   *   Confirmation is blocked due to the event's outstanding technical support assignment
    */
-  test.fixme('TC_E08S03_04 - Verify that attempting to confirm an event while an event\'s requested technical support has no', async ({ page }) => {
+  test.fixme("TC_E08S03_04 - Verify that attempting to confirm an event while a event's requested technical support has no staff assigned should be blocked", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Tech Conference 2026"
     // 3. Click "Confirm Event"
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S03_05
-   * AC:      Scenario 5 - Organiser sees confirmed arrangements
+   * AC:      E08-S03 - Scenario 6 (Organiser sees confirmed arrangements)
    * Sprint:  3.0
    *
    * Pre-conditions:
-   *   Event "Charity Run" has just been confirmed, with venue Riverside Hall, date 15/01/2027, time 09:00–17:00
+   *   Event "Charity Run" has just been confirmed, with venue Riverside Hall, date 15/01/2027, time 09:00-17:00
    *
    * Test data:
-   *   Confirmed venue: Riverside Hall; Date: 15/01/2027; Time: 09:00–17:00
+   *   Confirmed venue: Riverside Hall | Date: 15/01/2027 | Time: 09:00-17:00
    *
    * Expected result:
-   *   The Organiser sees the confirmed venue (Riverside Hall), date (15/01/2027), time (09:00–17:00), and full arrangements for the event
+   *   The Organiser sees the confirmed venue (Riverside Hall), date (15/01/2027), time (09:00-17:00), and full arrangements for the event
    */
-  test.fixme('TC_E08S03_05 - Verify that once an event is confirmed, the Organiser should see the confirmed venue, date, tim', async ({ page }) => {
+  test.fixme("TC_E08S03_05 - Verify that once an event is confirmed, the Organiser should see the confirmed venue, date, time and arrangements for every event", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as organiser_a@clienta.com
     // 2. Open the confirmed event "Charity Run"
-
-    // TODO implement
+    void page;
   });
 
-test.describe('E08-S04 - Revert a confirmed event to planning', () => {
+});
+
+test.describe("E08-S04", () => {
 
   /**
    * TC_E08S04_01
-   * AC:      Scenario 1 - Reverted with a recorded reason
+   * AC:      E08-S04 - Scenario 1 (Reverted with a recorded reason)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -136,20 +133,19 @@ test.describe('E08-S04 - Revert a confirmed event to planning', () => {
    * Expected result:
    *   The status changes to "Planning", and organiser_a@clienta.com is notified with the reason "Venue reported a plumbing issue"
    */
-  test.fixme('TC_E08S04_01 - Verify that reverting a Confirmed event to Planning with a recorded reason should update its st', async ({ page }) => {
+  test.fixme("TC_E08S04_01 - Verify that reverting a Confirmed event to Planning with a recorded reason should update its status and notify the Organiser with the reason", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Leadership Summit"
     // 3. Click "Revert to Planning"
     // 4. Enter reason "Venue reported a plumbing issue"
     // 5. Confirm
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S04_02
-   * AC:      Scenario 2 - Registered Attendees notified
+   * AC:      E08-S04 - Scenario 2 (Registered Attendees notified)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -161,19 +157,18 @@ test.describe('E08-S04 - Revert a confirmed event to planning', () => {
    * Expected result:
    *   attendee_a@example.com receives a notification that arrangements for "Leadership Summit" are being revised
    */
-  test.fixme('TC_E08S04_02 - Verify that reverting a Confirmed event with registered Attendees should notify them that arran', async ({ page }) => {
+  test.fixme("TC_E08S04_02 - Verify that reverting a Confirmed event with registered Attendees should notify them that arrangements are being revised", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Leadership Summit"
     // 3. Revert it to Planning with a reason
     // 4. Check attendee_a@example.com's notifications
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S04_03
-   * AC:      Scenario 3 - No automatic reversion
+   * AC:      E08-S04 - Scenario 3 (No automatic reversion)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -185,18 +180,17 @@ test.describe('E08-S04 - Revert a confirmed event to planning', () => {
    * Expected result:
    *   The event status remains "Confirmed"; the affected venue booking is shown flagged, but no automatic status change has occurred
    */
-  test.fixme('TC_E08S04_03 - Verify that an arrangement breaking on a Confirmed event should not automatically revert its st', async ({ page }) => {
+  test.fixme("TC_E08S04_03 - Verify that an arrangement breaking on a Confirmed event should not automatically revert its status; the affected arrangement should instead be flagged", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as organiser_a@clienta.com
     // 2. Open event "Leadership Summit"
     // 3. Check the event status and the flagged arrangement
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S04_04
-   * AC:      Scenario 1 - Reverted with a recorded reason
+   * AC:      E08-S04 (checklist: reversion recorded in activity log)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -208,19 +202,20 @@ test.describe('E08-S04 - Revert a confirmed event to planning', () => {
    * Expected result:
    *   An activity log entry exists recording the reversion, with actor = coordinator_1@connectsphere.com, action = "Reverted to Planning", and a timestamp
    */
-  test.fixme('TC_E08S04_04 - Verify that a reversion from Confirmed to Planning should be recorded in the activity log', async ({ page }) => {
+  test.fixme("TC_E08S04_04 - Verify that a reversion from Confirmed to Planning should be recorded in the activity log", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as a System Administrator
     // 2. Open the Activity Log and search for "Leadership Summit"
-
-    // TODO implement
+    void page;
   });
 
-test.describe('E08-S05 - Complete an event', () => {
+});
+
+test.describe("E08-S05", () => {
 
   /**
    * TC_E08S05_01
-   * AC:      Scenario 1 - Auto-completed after last event
+   * AC:      E08-S05 - Scenario 1 (Auto-completed after the end time)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -232,17 +227,16 @@ test.describe('E08-S05 - Complete an event', () => {
    * Expected result:
    *   The event status has automatically changed to "Completed"
    */
-  test.fixme('TC_E08S05_01 - Verify that a Confirmed event should automatically become Completed once its last event\'s end', async ({ page }) => {
+  test.fixme("TC_E08S05_01 - Verify that a Confirmed event should automatically become Completed once its last event's end time has passed", async ({ page }) => {
     // Steps from the specification:
     // 1. Wait for (or trigger) the system's next scheduled evaluation after 17:00 on 15/01/2027
     // 2. Open event "Charity Run" and check its status
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S05_02
-   * AC:      Scenario 2 - Marked complete manually
+   * AC:      E08-S05 - Scenario 2 (Marked complete manually)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -254,18 +248,17 @@ test.describe('E08-S05 - Complete an event', () => {
    * Expected result:
    *   The event status changes to "Completed"
    */
-  test.fixme('TC_E08S05_02 - Verify that an Event Coordinator should be able to manually mark a Confirmed event complete onc', async ({ page }) => {
+  test.fixme("TC_E08S05_02 - Verify that an Event Coordinator should be able to manually mark a Confirmed event complete once its last event has started", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Volunteer Training Day"
     // 3. Click "Mark Complete"
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S05_03
-   * AC:      Scenario 2 - Marked complete manually
+   * AC:      E08-S05 - Scenario 3 (Premature completion blocked)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -277,18 +270,17 @@ test.describe('E08-S05 - Complete an event', () => {
    * Expected result:
    *   The action is blocked; the event cannot be marked complete before it has started
    */
-  test.fixme('TC_E08S05_03 - Verify that attempting to mark an event complete before its first event has started should be', async ({ page }) => {
+  test.fixme("TC_E08S05_03 - Verify that attempting to mark an event complete before its first event has started should be blocked", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as coordinator_1@connectsphere.com
     // 2. Open event "Tech Conference 2026"
     // 3. Attempt to click "Mark Complete"
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S05_04
-   * AC:      Scenario 4 - Cancelled event never auto-completes
+   * AC:      E08-S05 - Scenario 4 (Cancelled event never auto-completes)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -300,17 +292,16 @@ test.describe('E08-S05 - Complete an event', () => {
    * Expected result:
    *   The event status remains "Cancelled"; it has not been auto-completed
    */
-  test.fixme('TC_E08S05_04 - Verify that a Cancelled event should never auto-complete, even after its original end time pass', async ({ page }) => {
+  test.fixme("TC_E08S05_04 - Verify that a Cancelled event should never auto-complete, even after its original end time passes", async ({ page }) => {
     // Steps from the specification:
     // 1. Wait for (or trigger) the system's next scheduled evaluation after "Product Launch Night"'s original end time
     // 2. Open event "Product Launch Night" and check its status
-
-    // TODO implement
+    void page;
   });
 
   /**
    * TC_E08S05_05
-   * AC:      TODO - confirm which scenario this is evidence for
+   * AC:      E08-S05 (checklist: transition to Completed logged)
    * Sprint:  4.0
    *
    * Pre-conditions:
@@ -322,14 +313,34 @@ test.describe('E08-S05 - Complete an event', () => {
    * Expected result:
    *   An activity log entry exists recording the transition to "Completed", with the time it occurred
    */
-  test.fixme('TC_E08S05_05 - Verify that an event\'s transition to Completed should be recorded in the activity log', async ({ page }) => {
+  test.fixme("TC_E08S05_05 - Verify that an event's transition to Completed should be recorded in the activity log", async ({ page }) => {
     // Steps from the specification:
     // 1. Log in as a System Administrator
     // 2. Open the Activity Log and search for "Charity Run"
-
-    // TODO implement
+    void page;
   });
 
-});
-});
+  /**
+   * TC_E08S05_06
+   * AC:      E08-S05 - Scenario 1 (Auto-completed after the end time)
+   * Sprint:  4.0
+   *
+   * Pre-conditions:
+   *   Event EVT-2002 is Confirmed and its end time is 2026-11-02 17:00:00 +08:00
+   *
+   * Test data:
+   *   Event ends: 2026-11-02 17:00:00 +08:00 - Evaluations at 16:59:59 and 17:00:00
+   *
+   * Expected result:
+   *   At 16:59:59 the status remains Confirmed. At 17:00:00 the status becomes Completed and the transition is recorded in the activity log
+   */
+  test.fixme("TC_E08S05_06 - Verify that an event auto-completes at the exact end time and not before", async ({ page }) => {
+    // Steps from the specification:
+    // 1. Set the system clock to 2026-11-02 16:59:59 +08:00 and trigger the completion evaluation
+    // 2. Record the event status
+    // 3. Set the system clock to 2026-11-02 17:00:00 +08:00 and trigger it again
+    // 4. Record the event status
+    void page;
+  });
+
 });
