@@ -215,6 +215,44 @@ Recommended Batch 4 Figma execution:
 5. After team review, export accepted frames into `docs/design/exports/` and
    link each frame from the matching Jira issue.
 
+## Batch 5 plan: breadth-first full screen inventory
+
+Batch 5 should keep the Batch 4 visual quality and role separation, but switch
+from depth to breadth. The goal is to show every major screen family the team is
+likely to build, including release-one screens and clearly marked future-backlog
+screens, so frontend scaffolding and Jira breakdown can be planned from the same
+map.
+
+Create one new Figma area named
+`High-fi proposal - Batch 5, breadth screen inventory`.
+
+Use the same documented palette, Inter type direction, neutral operational
+layout, and paired desktop/mobile approach. Every role should have a desktop
+screen strip and a mobile companion strip where the workflow is user-facing.
+Future backlog screens must be marked with `Future` or `Later`.
+
+Planned Batch 5 coverage:
+
+| Role or area | Screens |
+| --- | --- |
+| Access and account | Login, create account, forgot password, role-aware home, permission denied, profile/settings |
+| Event Organiser | Dashboard, request list, create request wizard, draft editor, submitted detail, clarification response, change request, cancellation |
+| Event Coordinator | Workload dashboard, review queue, request detail, decision panel, clarification thread, event planning workspace, readiness checklist, final confirmation |
+| Venue Staff | Venue dashboard, venue inventory, availability calendar, pending booking detail, booking approval/rejection, venue blockout, conflict warning |
+| Technical Support Staff | Equipment dashboard, equipment catalogue, request queue, reservation detail, partial fulfilment, technician assignment, conflict state |
+| Attendee | Event discovery, event detail, registration, waitlist, registration status, withdrawal, post-event feedback |
+| Shared operations | Notification center, audit/history drawer, comments/activity, search/filter patterns, empty/loading/error states |
+| Admin/future backlog | User management, role assignment, reporting dashboard, digest preferences, recommendation/personalisation placeholders |
+
+Batch 5 todo list:
+
+1. Add the Batch 5 Figma board to the existing wireframe file without replacing
+   Batches 1-4.
+2. Record the Batch 5 node id and screen list in this document.
+3. Export accepted Batch 5 frames into `docs/design/exports/` after review.
+4. Link approved screens to Jira stories once the Jira project is connected.
+5. Use Batch 5 to drive frontend route/component folder scaffolding.
+
 ## GitHub workflow plan
 
 Keep Figma planning separate from application implementation:
