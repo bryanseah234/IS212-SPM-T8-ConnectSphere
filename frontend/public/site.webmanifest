@@ -1,0 +1,17 @@
+{
+  "name": "SG ConnectSphere",
+  "short_name": "ConnectSphere",
+  "description": "Operational event planning and venue booking workspace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F7F5",
+  "theme_color": "#0E7C7B",
+  "icons": [
+    {
+      "src": "/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
