@@ -111,13 +111,15 @@ later requires it. Environments can deploy from the same versioned history.
 
 | Change | Branch | Commit / PR title |
 | --- | --- | --- |
-| Feature | `feature/42-user-profile` | `feat(frontend): add profile form` |
-| Bug fix | `fix/57-empty-form-submit` | `fix(backend): reject invalid dates` |
+| Feature | `feature/SCRUM-42-user-profile` | `feat(frontend): add profile form` |
+| Bug fix | `fix/SCRUM-57-empty-form-submit` | `fix(backend): reject invalid dates` |
 | Tooling | `chore/setup-ci` | `ci: add repository checks` |
 | Documentation | `docs/onboarding` | `docs: explain local setup` |
 
-Branch suffixes use lowercase letters, digits, and single hyphens; include an
-issue number when available. The allowed prefixes and commit types are listed in
+Branch suffixes should start with a Jira issue key such as `SCRUM-42` when a Jira
+issue exists, followed by lowercase words separated with single hyphens. Lowercase
+slugs without Jira keys remain allowed for setup or documentation work before an
+issue exists. The allowed prefixes and commit types are listed in
 [CONTRIBUTING.md](../CONTRIBUTING.md). The conventional title limit is 100 characters.
 Scopes are optional; `frontend`, `backend`, and `deps` are useful examples.
 

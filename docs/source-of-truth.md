@@ -6,7 +6,7 @@ product documents, Markdown summaries, Figma boards, Jira issues, and future cod
 ## Authority order
 
 1. Primary product sources:
-   - `docs/CONNECTSPHERE BACKLOGS CAA 130926.xlsx`
+   - `docs/CONNECTSPHERE BACKLOGS CAA 140926.xlsx`
    - `docs/BACKLOG DECISION REVIEW CAA 130926.docx`
    - `docs/ARCHITECTURE DECISION RECORDS CAA 120926.docx`
    - `docs/testing/PROJECT TEST CASES.xlsx`

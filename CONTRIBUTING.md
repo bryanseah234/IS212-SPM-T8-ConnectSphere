@@ -29,13 +29,15 @@ Create one short-lived branch per logical change, off an up-to-date `main`:
 ```text
 git switch main
 git pull --ff-only
-git switch -c feature/42-user-profile
+git switch -c feature/SCRUM-42-user-profile
 ```
 
 Allowed human branch prefixes are `feature/`, `fix/`, `chore/`, `docs/`, `test/`,
-`refactor/`, and `ci/`. The rest is lowercase letters, digits, and single hyphens.
-Include the issue number when available. Personal long-lived branches and separate
-frontend/backend integration branches are not the default workflow.
+`refactor/`, and `ci/`. Prefer a Jira issue key followed by a lowercase slug,
+such as `feature/SCRUM-42-user-profile`. Branches may also use a lowercase slug
+with digits and single hyphens when no Jira issue exists yet, such as
+`docs/onboarding`. Personal long-lived branches and separate frontend/backend
+integration branches are not the default workflow.
 
 Commit messages and PR titles use `type(scope): description`, at most 100
 characters. Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`,
@@ -52,6 +54,8 @@ The commit-message hook checks local messages. Git-generated merge/revert messag
 are allowed. CI checks the PR title, including title edits; that title becomes the
 squash commit title once the owner applies the merge settings. Dependabot branches
 are accepted in CI only for PRs actually authored by Dependabot's bot account.
+Keep Jira issue keys in branch names, commit bodies, and PR descriptions unless
+the team deliberately updates the PR title convention.
 
 ## Review and merge
 
