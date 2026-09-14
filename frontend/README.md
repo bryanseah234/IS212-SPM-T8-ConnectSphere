@@ -13,9 +13,10 @@ npm run typecheck --workspace frontend
 npm run build --workspace frontend
 ```
 
-The current UI is a scaffold shell that visualises release 1 roles, queue states,
-and provider boundaries. It is not a complete implementation of the product
-backlog yet.
+The current UI is a high-fi Batch 5 prototype shell that visualises the breadth
+of planned ConnectSphere screens across desktop and mobile companion layouts.
+It uses static mock data from the product/design docs so the team can review
+screen coverage before implementing real workflow logic.
 
 Keep server-only credentials out of frontend code. Browser-safe values should use
 the public names documented in `.env.template`.
