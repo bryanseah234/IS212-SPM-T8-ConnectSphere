@@ -77,7 +77,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'create-account',
         title: 'Create Account',
-        story: 'E01-S02',
+        story: 'E01-S08',
         tone: 'success',
         state: 'Attendee sign-up',
         mobile: 'Single-column form with account confirmation message.',
@@ -88,7 +88,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'role-home',
         title: 'Role-aware Home',
-        story: 'E01-S08',
+        story: 'E01-S01',
         tone: 'info',
         state: 'Signed in',
         mobile: 'Action stack ordered by role priority.',
@@ -110,7 +110,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'profile-settings',
         title: 'Profile and Settings',
-        story: 'Future',
+        story: 'E01-S04',
         tone: 'future',
         state: 'Later',
         mobile: 'Notification preferences and contact details.',
@@ -165,7 +165,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'submitted-detail',
         title: 'Submitted Detail',
-        story: 'E03-S01',
+        story: 'E03-S05',
         tone: 'success',
         state: 'Timeline',
         mobile: 'Decision timeline with comments drawer.',
@@ -187,7 +187,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'change-request',
         title: 'Change Request',
-        story: 'Future',
+        story: 'E10-S01',
         tone: 'future',
         state: 'Later',
         mobile: 'Change reason, changed fields, and coordinator review status.',
@@ -199,7 +199,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'cancellation',
         title: 'Cancellation',
-        story: 'Future',
+        story: 'E10-S04',
         tone: 'future',
         state: 'Later',
         mobile: 'Confirm cancellation with affected attendee count.',
@@ -221,7 +221,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'workload-dashboard',
         title: 'Workload Dashboard',
-        story: 'E04-S01',
+        story: 'E03-S01',
         tone: 'info',
         state: 'Triage',
         mobile: 'Priority cards for assigned requests.',
@@ -232,7 +232,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'review-queue',
         title: 'Review Queue',
-        story: 'E04-S02',
+        story: 'E03-S01',
         tone: 'warning',
         state: 'Needs decision',
         mobile: 'Compact list with status and due date.',
@@ -243,7 +243,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'request-detail',
         title: 'Request Detail',
-        story: 'E04-S03',
+        story: 'E03-S03',
         tone: 'neutral',
         state: 'Read-only review',
         mobile: 'Summary, requirements, and comment thread.',
@@ -254,7 +254,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'decision-panel',
         title: 'Decision Panel',
-        story: 'E04-S04',
+        story: 'E03-S03',
         tone: 'danger',
         state: 'Approve or reject',
         mobile: 'Decision confirmation with reason required on rejection.',
@@ -265,7 +265,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'planning-workspace',
         title: 'Planning Workspace',
-        story: 'E08-S01',
+        story: 'E06-S03',
         tone: 'info',
         state: 'Venue and equipment',
         mobile: 'Checklist view of outstanding dependencies.',
@@ -276,7 +276,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'readiness-checklist',
         title: 'Readiness Checklist',
-        story: 'E08-S02',
+        story: 'E08-S03',
         tone: 'warning',
         state: 'Blocked',
         mobile: 'Reasons listed before Confirm is enabled.',
@@ -341,7 +341,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'booking-detail',
         title: 'Pending Booking Detail',
-        story: 'E05-S04',
+        story: 'E06-S03',
         tone: 'info',
         state: 'Review',
         mobile: 'Requirement summary and suitability score.',
@@ -352,7 +352,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'booking-decision',
         title: 'Booking Approval or Rejection',
-        story: 'E05-S05',
+        story: 'E06-S04',
         tone: 'danger',
         state: 'Decision',
         mobile: 'Approve or reject with reason.',
@@ -429,7 +429,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'technician-assignment',
         title: 'Technician Assignment',
-        story: 'E07-S05',
+        story: 'E07-S07',
         tone: 'success',
         state: 'Assign',
         mobile: 'Available colleagues and assignment conflicts.',
@@ -440,7 +440,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'equipment-conflict',
         title: 'Conflict State',
-        story: 'E07-S06',
+        story: 'E07-S04',
         tone: 'danger',
         state: 'Blocked',
         mobile: 'Shortfall reason and suggested next step.',
@@ -461,7 +461,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'event-discovery',
         title: 'Event Discovery',
-        story: 'E10-S01',
+        story: 'E09-S01',
         tone: 'info',
         state: 'Browse',
         mobile: 'Card feed with date, venue, and capacity hints.',
@@ -472,7 +472,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'event-detail',
         title: 'Event Detail',
-        story: 'E10-S02',
+        story: 'E09-S01',
         tone: 'neutral',
         state: 'Public details',
         mobile: 'Event facts, venue, accessibility, and register action.',
@@ -483,7 +483,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'registration',
         title: 'Registration',
-        story: 'E10-S03',
+        story: 'E09-S01',
         tone: 'success',
         state: 'Seats available',
         mobile: 'One-screen confirm with attendee details.',
@@ -494,7 +494,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'waitlist',
         title: 'Waitlist',
-        story: 'E10-S04',
+        story: 'E09-S04',
         tone: 'warning',
         state: 'Full event',
         mobile: 'Waitlist position and promotion explanation.',
@@ -505,7 +505,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'withdrawal',
         title: 'Withdrawal',
-        story: 'E10-S05',
+        story: 'E09-S05',
         tone: 'danger',
         state: 'Confirm',
         mobile: 'Withdrawal confirmation and waitlist promotion warning.',
@@ -549,7 +549,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'audit-history',
         title: 'Audit and History Drawer',
-        story: 'E12-S01',
+        story: 'E14-S02',
         tone: 'neutral',
         state: 'Traceability',
         mobile: 'Timeline opens as a full-screen sheet.',
@@ -560,7 +560,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'comments-activity',
         title: 'Comments and Activity',
-        story: 'E12-S02',
+        story: 'E03-S06',
         tone: 'warning',
         state: 'Clarification thread',
         mobile: 'Threaded comments with reply composer.',
@@ -571,7 +571,7 @@ const roleAreas: RoleArea[] = [
       {
         id: 'search-filter',
         title: 'Search and Filter Patterns',
-        story: 'E13-S01',
+        story: 'E06-S01',
         tone: 'info',
         state: 'Reusable',
         mobile: 'Search bar, filter chips, and saved views.',
@@ -698,7 +698,7 @@ function IconButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
 }
 
 function App() {
-  const [viewMode, setViewMode] = useState<'inventory' | 'organiser-flow'>('inventory');
+  const [viewMode, setViewMode] = useState<'inventory' | 'organiser-flow'>('organiser-flow');
   const [roleId, setRoleId] = useState(roleAreas[0].id);
   const activeRole = useMemo(
     () => roleAreas.find((role) => role.id === roleId) ?? roleAreas[0],
@@ -715,12 +715,12 @@ function App() {
 
   return (
     <main className="app-shell">
-      <aside className="sidebar" aria-label="Batch 5 role navigation">
+      <aside className="sidebar" aria-label="ConnectSphere role navigation">
         <div className="brand-lockup">
-          <div className="brand-mark">SG</div>
+          <img className="brand-mark" src="/favicon.svg" alt="" aria-hidden="true" />
           <div>
-            <strong>ConnectSphere</strong>
-            <span>Batch 5 prototype</span>
+            <strong>SG ConnectSphere</strong>
+            <span>Release 1 workspace</span>
           </div>
         </div>
 
@@ -750,17 +750,17 @@ function App() {
       <section className="workspace">
         <header className="topbar">
           <div>
-            <p className="eyebrow">High-fi proposal - Batch 5</p>
-            <h1>Breadth screen inventory</h1>
+            <p className="eyebrow">Release 1 application shell</p>
+            <h1>Event planning operations workspace</h1>
           </div>
-          <div className="topbar-actions" aria-label="Prototype actions">
+          <div className="topbar-actions" aria-label="Application actions">
             <div className="view-switcher" aria-label="Frontend view mode">
               <button
                 className={viewMode === 'inventory' ? 'view-switcher-active' : ''}
                 type="button"
                 onClick={() => setViewMode('inventory')}
               >
-                Inventory
+                Screen map
               </button>
               <button
                 className={viewMode === 'organiser-flow' ? 'view-switcher-active' : ''}
@@ -771,7 +771,7 @@ function App() {
                   setScreenId('create-request');
                 }}
               >
-                Organiser flow
+                Request flow
               </button>
             </div>
             <IconButton icon={Search} label="Search screens" />
