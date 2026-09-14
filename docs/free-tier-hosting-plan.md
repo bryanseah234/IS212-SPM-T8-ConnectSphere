@@ -23,6 +23,12 @@ process. Use Vercel's serverless model:
 - Cron Jobs call scheduled endpoints for periodic checks;
 - database rows remain the source of truth for idempotency and retry safety.
 
+On Vercel Hobby, committed cron schedules must stay daily. The current
+`vercel.json` therefore uses a once-per-day schedule so free-tier preview and
+production deployments can pass. If the team needs near-real-time notification
+relay runs, record a later decision to use a paid Vercel schedule, an external
+scheduler, or a worker process outside Vercel Hobby.
+
 For ConnectSphere, the clean pattern is:
 
 1. Write the business change and notification/outbox row in PostgreSQL.
