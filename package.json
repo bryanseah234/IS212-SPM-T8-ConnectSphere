@@ -11,9 +11,12 @@
     "dev": "npm run dev --workspace frontend",
     "build": "npm run build --workspace frontend && npm run build --workspace backend",
     "typecheck": "npm run typecheck --workspace frontend && npm run typecheck --workspace backend",
-    "preview": "npm run preview --workspace frontend"
+    "preview": "npm run preview --workspace frontend",
+    "test:e2e": "playwright test",
+    "test:e2e:scaffold": "playwright test --reporter=list"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@types/node": "latest",
     "typescript": "latest"
   },
