@@ -27,6 +27,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { OrganiserRequestFlow } from './features/organiser/OrganiserRequestFlow';
 
 type Tone = 'success' | 'warning' | 'info' | 'danger' | 'future' | 'neutral';
 
@@ -697,6 +698,7 @@ function IconButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
 }
 
 function App() {
+  const [viewMode, setViewMode] = useState<'inventory' | 'organiser-flow'>('inventory');
   const [roleId, setRoleId] = useState(roleAreas[0].id);
   const activeRole = useMemo(
     () => roleAreas.find((role) => role.id === roleId) ?? roleAreas[0],
@@ -752,11 +754,33 @@ function App() {
             <h1>Breadth screen inventory</h1>
           </div>
           <div className="topbar-actions" aria-label="Prototype actions">
+            <div className="view-switcher" aria-label="Frontend view mode">
+              <button
+                className={viewMode === 'inventory' ? 'view-switcher-active' : ''}
+                type="button"
+                onClick={() => setViewMode('inventory')}
+              >
+                Inventory
+              </button>
+              <button
+                className={viewMode === 'organiser-flow' ? 'view-switcher-active' : ''}
+                type="button"
+                onClick={() => {
+                  setViewMode('organiser-flow');
+                  setRoleId('organiser');
+                  setScreenId('create-request');
+                }}
+              >
+                Organiser flow
+              </button>
+            </div>
             <IconButton icon={Search} label="Search screens" />
             <IconButton icon={SlidersHorizontal} label="Filter screens" />
             <IconButton icon={Bell} label="Open notifications" />
           </div>
         </header>
+
+        {viewMode === 'organiser-flow' ? <OrganiserRequestFlow /> : null}
 
         <section className={`role-hero accent-${activeRole.accent}`}>
           <div className="role-hero-copy">
@@ -782,7 +806,7 @@ function App() {
           </div>
         </section>
 
-        <section className="prototype-grid">
+        <section className={`prototype-grid ${viewMode === 'organiser-flow' ? 'prototype-grid-secondary' : ''}`}>
           <aside className="screen-rail" aria-label={`${activeRole.label} screens`}>
             <div className="section-heading">
               <div>
