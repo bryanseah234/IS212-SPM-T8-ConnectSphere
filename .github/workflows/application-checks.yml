@@ -41,5 +41,8 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Compiled API runtime tests without provider credentials
+        run: npm run test:runtime
+
       - name: Playwright scaffold
         run: npm run test:e2e:scaffold
