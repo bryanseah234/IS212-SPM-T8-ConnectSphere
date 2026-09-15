@@ -1,6 +1,5 @@
-import type { NotificationDeliveryRepository } from './repository';
-import type { NotificationQueue } from './queue';
-import type { NotificationDelivery, NotificationDeliveryDraft, NotificationQueueJob } from './types';
+import type { NotificationDeliveryRepository } from './repository.js';
+import type { NotificationDelivery, NotificationDeliveryDraft, NotificationQueueJob } from './types.js';
 
 export function toQueueJob(delivery: NotificationDelivery): NotificationQueueJob {
   return {
@@ -23,25 +22,4 @@ export async function createNotificationDeliveries(
   return repository.createQueuedDeliveries(deliveries);
 }
 
-export async function relayCommittedNotificationDeliveries(
-  repository: NotificationDeliveryRepository,
-  queue: NotificationQueue,
-  limit: number,
-) {
-  const deliveries = await repository.findQueuedDeliveries(limit);
-  const results = [];
-
-  for (const delivery of deliveries) {
-    try {
-      await queue.publish(toQueueJob(delivery));
-      await repository.markPublished(delivery.id);
-      results.push({ deliveryId: delivery.id, ok: true });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      await repository.markFailed(delivery.id, message);
-      results.push({ deliveryId: delivery.id, ok: false, error: message });
-    }
-  }
-
-  return results;
-}
+export { publishCommittedDeliveries as relayCommittedNotificationDeliveries } from './dispatch.js';

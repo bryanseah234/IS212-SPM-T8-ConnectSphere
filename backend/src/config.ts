@@ -9,6 +9,7 @@ export type RuntimeConfig = {
   upstashRedisRestUrl?: string;
   upstashRedisRestToken?: string;
   notificationQueueName: string;
+  databaseUrl?: string;
   supabaseUrl?: string;
   supabaseAnonKey?: string;
   supabaseServiceRoleKey?: string;
@@ -27,6 +28,7 @@ export const runtimeConfig: RuntimeConfig = {
   upstashRedisRestUrl: read('UPSTASH_REDIS_REST_URL'),
   upstashRedisRestToken: read('UPSTASH_REDIS_REST_TOKEN'),
   notificationQueueName: read('UPSTASH_REDIS_QUEUE_NOTIFICATIONS') ?? 'connectsphere:notifications',
+  databaseUrl: read('DATABASE_URL'),
   supabaseUrl: read('SUPABASE_URL'),
   supabaseAnonKey: read('SUPABASE_ANON_KEY'),
   supabaseServiceRoleKey: read('SUPABASE_SERVICE_ROLE_KEY'),
@@ -49,5 +51,6 @@ export function getReadiness() {
     ),
     brevo: Boolean(runtimeConfig.brevoApiKey && runtimeConfig.emailFrom),
     cronSecret: Boolean(runtimeConfig.cronSecret),
+    database: Boolean(runtimeConfig.databaseUrl),
   };
 }

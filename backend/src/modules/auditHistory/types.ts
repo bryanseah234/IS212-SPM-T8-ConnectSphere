@@ -1,4 +1,4 @@
-import type { ModuleKey } from '../shared/moduleRegistry';
+import type { ModuleKey } from '../shared/moduleRegistry.js';
 
 export type AuditAction =
   | 'access_denied'
