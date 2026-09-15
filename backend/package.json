@@ -13,7 +13,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "dev": "tsx src/dev.ts",
     "test": "tsx --test tests/registration.test.ts",
-    "test:db": "tsx --test tests/registration.db.test.ts"
+    "test:db": "tsx --test tests/registration.db.test.ts",
+    "test:profile": "tsx --test tests/profile.test.ts",
+    "test:profile:db": "tsx --test tests/profile.integration.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
