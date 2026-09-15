@@ -1,3 +1,4 @@
+import { AttendeeEvents } from './features/attendee/AttendeeEvents';
 import { useMemo, useState } from 'react';
 import {
   AlertTriangle,
@@ -699,6 +700,7 @@ function IconButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
 }
 
 function App() {
+  if (window.location.pathname.startsWith('/attendee/events') || window.location.pathname.startsWith('/internal/')) return <AttendeeEvents />;
   if (window.location.pathname === '/events' || window.location.pathname.startsWith('/events/')) return <ClientEvents />;
   return <PrototypeApp />;
 }
@@ -723,6 +725,7 @@ function PrototypeApp() {
     <main className="app-shell">
       <aside className="sidebar" aria-label="Batch 5 role navigation">
         <a href="/events">My organisation’s events</a>
+        <a href="/attendee/events">My registered events</a>
         <div className="brand-lockup">
           <div className="brand-mark">SG</div>
           <div>
@@ -781,6 +784,7 @@ function PrototypeApp() {
                 Organiser flow
               </button>
             </div>
+            <a href="/register">Create Account</a>
             <IconButton icon={Search} label="Search screens" />
             <IconButton icon={SlidersHorizontal} label="Filter screens" />
             <IconButton icon={Bell} label="Open notifications" />

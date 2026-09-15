@@ -14,6 +14,7 @@ const seedCredential = 'ValidPass123';
 
 const managedTables = [
   'auth_sessions',
+  'event_publications',
   'audit_logs',
   'notification_deliveries',
   'notifications',

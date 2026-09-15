@@ -1,3 +1,4 @@
+import { refusePlanning } from '../../backend/src/modules/attendeeVisibility/service.js';
 import { requireMethod } from '../../backend/src/http.js';
 import { currentUser, query, respond } from '../../backend/src/modules/eventVisibility/runtime.js';
 import { getEvent, listEvents, listNotifications, requireOrganiser } from '../../backend/src/modules/eventVisibility/service.js';
@@ -9,6 +10,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
     const user = await currentUser(request);
     const params = new URL(request.url || '/', 'http://localhost').searchParams;
     const id = params.get('id');
+    if (user.role === 'attendee') await refusePlanning(query, user, id || '');
     requireOrganiser(user);
     if (id) return { event: await getEvent(query, user, id.slice(0, 240)) };
     return { events: await listEvents(query, user, params.get('q') || ''),

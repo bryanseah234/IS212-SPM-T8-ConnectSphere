@@ -8,7 +8,7 @@ TypeScript backend scaffold for Vercel Functions and provider integration seams.
 - Shared backend code lives in `backend/src/`.
 - Module contracts live in `backend/src/modules/`; they define repository,
   service, access-control, audit, status, and notification boundaries.
-  E01-S02 include implemented PostgreSQL access checks.
+  E01-S02 and E01-S03 include implemented PostgreSQL access checks.
 - Upstash Redis is the queued notification transport.
 - Brevo is the initial transactional email provider.
 - PostgreSQL stores accounts, password hashes, sessions, events and audit records.
@@ -123,9 +123,12 @@ Do not commit real provider tokens or service-role keys.
 
 ## Access and Identity
 
-The organiser event API use PostgreSQL-backed sessions. See
-[organiser setup and verification](../docs/testing/client-event-visibility.md)
-for migrations, credentials and acceptance evidence. API routes:
+The organiser and attendee event APIs use PostgreSQL-backed sessions. See
+[attendee setup and verification](../docs/testing/attendee-event-visibility.md)
+for migrations, credentials, publication and acceptance evidence. API routes:
 
 - `POST /api/auth/session` and `DELETE /api/auth/session`
 - `GET /api/events`
+- `GET /api/attendee/events`
+- `GET /api/internal/planning` (denial and auditing)
+- `POST /api/events/publish` (assigned coordinator only)
