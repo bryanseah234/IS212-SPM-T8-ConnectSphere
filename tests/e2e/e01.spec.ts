@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 // E01 - 32 cases. Generated from docs/testing/PROJECT TEST CASES.xlsx.
 // Each test.fixme() is a specification. Remove .fixme once implemented.
@@ -10,6 +10,12 @@ test.describe("E01-S01", () => {
    * AC:      E01-S01 - Scenario 1 (Valid credentials accepted)
    * Sprint:  1.0
    *
+   * Traceability:
+   *   Story: E01-S01 Log in to the system
+   *   Acceptance criterion: valid credentials redirect the user to their role dashboard
+   *   Automated test script: tests/e2e/e01.spec.ts
+   *   Implementation evidence: SCRUM-89/SCRUM-90 frontend auth adapter and route guard
+   *
    * Pre-conditions:
    *   Registered account exists: organiser_a@clienta.com / ValidPass123
    *
@@ -19,18 +25,28 @@ test.describe("E01-S01", () => {
    * Expected result:
    *   User is signed in and redirected to the Event Organiser dashboard
    */
-  test.fixme("TC_E01S01_01 - Verify that a registered user with valid credentials should sign in and reach the dashboard for their role", async ({ page }) => {
-    // Steps from the specification:
-    // 1. Enter "organiser_a@clienta.com" in the Email field
-    // 2. Enter "ValidPass123" in the Password field
-    // 3. Click "Log In"
-    void page;
+  test('TC_E01S01_01 - valid credentials reach the Event Organiser dashboard', async ({ page }) => {
+    await page.goto('/login');
+
+    await page.getByTestId('login-email').fill('organiser_a@clienta.com');
+    await page.getByTestId('login-password').fill('ValidPass123');
+    await page.getByTestId('login-submit').click();
+
+    await expect(page).toHaveURL('/app/organiser');
+    await expect(page.getByRole('heading', { name: 'Event planning operations workspace' })).toBeVisible();
+    await expect(page.getByText('Signed in as organiser_a@clienta.com through demo.')).toBeVisible();
   });
 
   /**
    * TC_E01S01_02
    * AC:      E01-S01 - Scenario 2 (Wrong password reveals nothing)
    * Sprint:  1.0
+   *
+   * Traceability:
+   *   Story: E01-S01 Log in to the system
+   *   Acceptance criterion: invalid credentials keep the user signed out with a generic error
+   *   Automated test script: tests/e2e/e01.spec.ts
+   *   Implementation evidence: SCRUM-89/SCRUM-90 login error handling
    *
    * Pre-conditions:
    *   Registered account exists: organiser_a@clienta.com / ValidPass123
@@ -41,12 +57,15 @@ test.describe("E01-S01", () => {
    * Expected result:
    *   User remains signed out and sees the generic message "Invalid email or password", which does not indicate whether the email is registered
    */
-  test.fixme("TC_E01S01_02 - Verify that an incorrect password should keep the user signed out without revealing whether the email is registered", async ({ page }) => {
-    // Steps from the specification:
-    // 1. Enter "organiser_a@clienta.com" in the Email field
-    // 2. Enter "WrongPass999" in the Password field
-    // 3. Click "Log In"
-    void page;
+  test('TC_E01S01_02 - incorrect password keeps the user signed out with a generic error', async ({ page }) => {
+    await page.goto('/login');
+
+    await page.getByTestId('login-email').fill('organiser_a@clienta.com');
+    await page.getByTestId('login-password').fill('WrongPass999');
+    await page.getByTestId('login-submit').click();
+
+    await expect(page).toHaveURL('/login');
+    await expect(page.getByRole('alert')).toContainText('Email or password is incorrect.');
   });
 
   /**
