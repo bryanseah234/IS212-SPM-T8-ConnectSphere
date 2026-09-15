@@ -1,4 +1,4 @@
-import type { VenueBookingRepository } from './repository';
+import type { VenueBookingRepository } from './repository.js';
 
 export type VenueBookingService = {
   repository: VenueBookingRepository;

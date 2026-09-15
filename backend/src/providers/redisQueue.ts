@@ -1,51 +1,21 @@
-import { Redis } from '@upstash/redis';
-import { requireEnv, runtimeConfig } from '../config';
-import type { NotificationQueue } from '../modules/notificationDispatcher';
-import type { NotificationQueueJob } from '../modules/notificationDispatcher';
-import type { EmailJob } from './brevo';
+import { createDeliveryTransport } from './durableRedis.js';
+import type { NotificationQueue } from '../modules/notificationDispatcher/index.js';
+import type { NotificationQueueJob } from '../modules/notificationDispatcher/index.js';
+import type { EmailJob } from './brevo.js';
 
-function createRedis() {
-  return new Redis({
-    url: requireEnv(runtimeConfig.upstashRedisRestUrl, 'UPSTASH_REDIS_REST_URL'),
-    token: requireEnv(runtimeConfig.upstashRedisRestToken, 'UPSTASH_REDIS_REST_TOKEN'),
-  });
+// Compatibility exports fail closed: a raw email cannot bypass PostgreSQL.
+export async function enqueueEmail(_job: EmailJob): Promise<never> {
+  throw new Error('Use a committed PostgreSQL notification delivery');
 }
 
-export async function enqueueEmail(job: EmailJob) {
-  const redis = createRedis();
-  const item = JSON.stringify({
-    ...job,
-    queuedAt: new Date().toISOString(),
-  });
-
-  return redis.lpush(runtimeConfig.notificationQueueName, item);
-}
-
-export async function dequeueEmailBatch(limit = 5): Promise<EmailJob[]> {
-  const redis = createRedis();
-  const jobs: EmailJob[] = [];
-
-  for (let index = 0; index < limit; index += 1) {
-    const raw = await redis.rpop<string>(runtimeConfig.notificationQueueName);
-    if (!raw) {
-      break;
-    }
-
-    jobs.push(JSON.parse(raw) as EmailJob);
-  }
-
-  return jobs;
+export async function dequeueEmailBatch(_limit = 5): Promise<EmailJob[]> {
+  throw new Error('Destructive dequeue is disabled; legacy queue contents are retained');
 }
 
 export function createRedisNotificationQueue(): NotificationQueue {
   return {
     async publish(job: NotificationQueueJob) {
-      await enqueueEmail({
-        to: job.to,
-        subject: job.subject,
-        html: job.html,
-        notificationId: job.notificationId ?? job.deliveryId,
-      });
+      await createDeliveryTransport().publish(job.deliveryId);
     },
   };
 }

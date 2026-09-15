@@ -1,4 +1,4 @@
-import type { NotificationDelivery, NotificationDeliveryDraft } from './types';
+import type { NotificationDelivery, NotificationDeliveryDraft } from './types.js';
 
 export type NotificationDeliveryRepository = {
   createQueuedDeliveries(deliveries: readonly NotificationDeliveryDraft[]): Promise<NotificationDelivery[]>;

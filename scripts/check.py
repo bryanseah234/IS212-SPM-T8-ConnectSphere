@@ -1,4 +1,4 @@
-"""Run the same repository checks as CI; application checks are not configured yet."""
+"""Run repository hygiene and tooling checks, independently of application checks."""
 
 import subprocess
 from pathlib import Path
@@ -23,7 +23,7 @@ def main() -> int:
         if result.returncode:
             return result.returncode
     print("PASS: repository hygiene and tooling tests.")
-    print("NOT CONFIGURED: application lint, types, tests, build, and deployment.")
+    print("Run application checks separately: npm run build and npm run test:runtime.")
     return 0
 
 
