@@ -1,4 +1,4 @@
-import type { RegistrationRepository } from './repository';
+import type { RegistrationRepository } from './repository.js';
 
 export type RegistrationService = {
   repository: RegistrationRepository;
