@@ -1093,3 +1093,15 @@ button {
     min-height: auto;
   }
 }
+
+.client-events { max-width: 1100px; margin: auto; padding: 32px 20px; }
+.client-events header { margin-bottom: 28px; }
+.client-events nav { margin: 20px 0; }
+.client-events label { display: grid; gap: 8px; margin: 16px 0; max-width: 520px; }
+.client-events input { padding: 12px; border: 1px solid #768780; border-radius: 8px; background: white; color: #152b24; }
+.client-events button { padding: 10px 18px; cursor: pointer; }
+.client-events a { color: #14624e; text-decoration: underline; }
+.client-events [role="alert"] { padding: 16px; background: #fff0ed; color: #852c1d; border-radius: 8px; }
+.client-event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px; }
+.client-events article { padding: 20px; margin: 12px 0; background: white; border: 1px solid #cbd9d3; border-radius: 12px; }
+.client-events :focus-visible { outline: 3px solid #14624e; outline-offset: 3px; }

@@ -1,4 +1,5 @@
 export type VercelRequest = {
+  url?: string;
   method?: string;
   headers: Record<string, string | string[] | undefined>;
   body?: unknown;
