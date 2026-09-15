@@ -63,10 +63,20 @@ the team deliberately updates the PR title convention.
 2. Implement and run `python scripts/check.py` plus relevant application checks
    once those exist. Add regression tests for meaningful bug fixes.
 3. Open a draft PR into `main`, using the template. CI runs on drafts too.
-4. Resolve failing checks and inspect the diff. Mark ready for human review.
-5. Have another teammate review the behaviour and test evidence. Answer significant
+4. Resolve failing checks, update the branch with `main`, clear merge conflicts,
+   and inspect the diff. Do not request review while the PR is conflicted,
+   behind `main`, or failing required checks.
+5. Mark ready for review only after GitHub shows no merge conflicts and the
+   latest commit has green required checks, or checks are queued from that latest
+   commit.
+6. Have another teammate review the behaviour and test evidence. Answer significant
    findings or fix them. No AI review service is used.
-6. Squash merge after CI and one human approval, then delete the feature branch.
+7. Enable squash auto-merge after the PR is review-ready. GitHub will merge after
+   CI and one valid human approval, then delete the feature branch.
+
+Review approvals are intentionally requested late. Branch protection dismisses
+or invalidates approvals after new commits, so asking for review before conflict
+resolution or branch updates makes teammates review the same PR twice.
 
 Required checks are `repository-checks`, `pr-conventions`, and `lfs-guard`.
 See [the owner setup](docs/github-owner-setup.md) for the exact GitHub settings.
@@ -85,6 +95,9 @@ A product backlog item is considered done only when all of these conditions are 
   relevant to the change.
 - Manual verification passes where the story needs human UI or workflow checking.
 - Code has been peer-reviewed by at least one other developer.
+- Peer review was requested only after the PR was review-ready: no merge
+  conflicts, up to date with `main`, and required checks passing or queued for
+  the latest commit.
 - Security, accessibility, and UI criteria are satisfied where applicable.
 - Documentation and architecture are updated where the change affects setup,
   interfaces, decisions, backlog interpretation, or team workflow.

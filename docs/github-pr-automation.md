@@ -21,12 +21,19 @@ branch-protection requirements are satisfied.
 
 That means the normal flow is:
 
-1. Open a PR.
+1. Open a draft PR.
 2. Keep the branch updated with `main`.
-3. Wait for `repository-checks`, `pr-conventions`, and `lfs-guard`.
-4. Get one human approval.
-5. Resolve conversations.
-6. Enable auto-merge if the PR should merge as soon as those gates are green.
+3. Resolve merge conflicts and failing checks before requesting review.
+4. Wait for `repository-checks`, `pr-conventions`, and `lfs-guard` on the
+   latest commit.
+5. Mark the PR ready and request a human approval.
+6. Resolve conversations.
+7. Enable auto-merge if the PR should merge as soon as those gates are green.
+
+Request reviews only after the PR is review-ready: no merge conflicts, not behind
+`main`, and required checks passing or queued for the latest commit. Protected
+branch rules dismiss stale approvals after new commits, so early approvals often
+force teammates to review the same PR again after conflict fixes.
 
 ## What is not automated
 
