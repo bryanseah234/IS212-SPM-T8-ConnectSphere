@@ -12,8 +12,8 @@
     "notifications:inspect-legacy": "tsx src/database/inspectLegacyNotifications.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "dev": "tsx src/dev.ts",
-    "test": "tsx --test tests/registration.test.ts",
-    "test:db": "tsx --test tests/registration.db.test.ts"
+    "test": "tsx --test tests/registration.test.ts tests/eventVisibility.test.ts tests/venueCatalogue.test.ts",
+    "test:db": "tsx --test tests/registration.db.test.ts tests/eventVisibility.integration.test.ts tests/attendeeVisibility.integration.test.ts tests/venueCatalogue.integration.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
