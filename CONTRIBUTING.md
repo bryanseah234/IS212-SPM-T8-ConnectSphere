@@ -76,6 +76,25 @@ allow `main` with a notice; enforced direct-push prevention belongs to GitHub.
 After protection is enabled, use PRs rather than bypassing it. Do not force push
 shared branches or hide failures with `--no-verify`.
 
+## Definition of Done
+
+A product backlog item is considered done only when all of these conditions are met:
+
+- Acceptance criteria stated in the user story are satisfied.
+- Automated tests pass, including unit, integration, or end-to-end coverage where
+  relevant to the change.
+- Manual verification passes where the story needs human UI or workflow checking.
+- Code has been peer-reviewed by at least one other developer.
+- Security, accessibility, and UI criteria are satisfied where applicable.
+- Documentation and architecture are updated where the change affects setup,
+  interfaces, decisions, backlog interpretation, or team workflow.
+- The item is deployable and integrated into the increment through the reviewed
+  pull-request process.
+
+An item that does not meet all Definition of Done conditions is not counted as
+complete. Return it to the product backlog or keep it open in review until the
+missing condition is resolved.
+
 ## Shared practices
 
 - Review and stage intended files; keep credentials, `.env`, dependency folders,
