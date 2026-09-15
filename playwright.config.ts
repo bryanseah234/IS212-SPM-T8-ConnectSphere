@@ -22,6 +22,12 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
+  webServer: {
+    command: 'npm run dev --workspace frontend -- --port 5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+    url: 'http://localhost:5173',
+  },
   // Scaffold mode skips database work while every case is still test.fixme().
   // Real seeded runs are gated in tests/seed/global-setup.ts.
   globalSetup: './tests/seed/global-setup.ts',
