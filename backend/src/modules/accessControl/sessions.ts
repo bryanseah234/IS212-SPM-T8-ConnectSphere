@@ -1,8 +1,8 @@
 import { createHash, randomBytes } from 'node:crypto';
 import type { Pool } from 'pg';
-import type { VercelRequest } from '../../vercel';
-import { AccessError } from '../eventVisibility/service';
-import { verifyPassword } from './passwords';
+import type { VercelRequest } from '../../vercel.js';
+import { AccessError } from '../eventVisibility/service.js';
+import { verifyPassword } from './passwords.js';
 
 export const tokenDigest = (token: string) => createHash('sha256').update(token).digest('hex');
 export function sessionToken(request: VercelRequest) {

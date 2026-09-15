@@ -37,7 +37,7 @@ jobs:
         if: always()
         run: |
           echo 'Repository checks cover file hygiene, secret detection, and tooling tests.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Application lint, types, tests, builds, and deployment are not configured yet.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Application build and compiled API tests run in the application-checks job.' >> "$GITHUB_STEP_SUMMARY"
 
   pr-conventions:
     name: pr-conventions
