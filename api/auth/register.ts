@@ -1,12 +1,12 @@
 import { Pool } from 'pg';
-import { requireMethod, sendJson } from '../../backend/src/http';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
-import { registerAccount, type AccountRepository } from '../../backend/src/modules/accessControl/registration';
-import { createAccountRepository } from '../../backend/src/modules/accessControl/postgresRepository';
+import { requireMethod, sendJson } from '../../backend/src/http.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
+import { registerAccount, type AccountInsert, type AccountRepository } from '../../backend/src/modules/accessControl/registration.js';
+import { createAccountRepository } from '../../backend/src/modules/accessControl/postgresRepository.js';
 
 let pool: Pool | undefined;
 const repository: AccountRepository = {
-  async createAttendee(input) {
+  async createAttendee(input: AccountInsert) {
     if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not configured');
     pool ??= new Pool({ connectionString: process.env.DATABASE_URL, max: 4 });
     return createAccountRepository(pool).createAttendee(input);

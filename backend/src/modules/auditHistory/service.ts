@@ -1,5 +1,5 @@
-import type { AuditLogRepository } from './repository';
-import type { AuditEntryDraft } from './types';
+import type { AuditLogRepository } from './repository.js';
+import type { AuditEntryDraft } from './types.js';
 
 export function buildStatusChangeAuditEntry(input: {
   actorId: string;

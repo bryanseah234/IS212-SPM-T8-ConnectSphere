@@ -1,4 +1,4 @@
-import { hashPassword } from './password';
+import { hashPassword } from './password.js';
 
 export type RegistrationInput = {
   full_name: string;
