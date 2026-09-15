@@ -1,8 +1,8 @@
-import { refusePlanning } from '../../backend/src/modules/attendeeVisibility/service';
-import { requireMethod } from '../../backend/src/http';
-import { currentUser, query, respond } from '../../backend/src/modules/eventVisibility/runtime';
-import { getEvent, listEvents, listNotifications, requireOrganiser } from '../../backend/src/modules/eventVisibility/service';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
+import { refusePlanning } from '../../backend/src/modules/attendeeVisibility/service.js';
+import { requireMethod } from '../../backend/src/http.js';
+import { currentUser, query, respond } from '../../backend/src/modules/eventVisibility/runtime.js';
+import { getEvent, listEvents, listNotifications, requireOrganiser } from '../../backend/src/modules/eventVisibility/service.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (!requireMethod(request, response, 'GET')) return;

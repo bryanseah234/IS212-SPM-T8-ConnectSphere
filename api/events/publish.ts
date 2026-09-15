@@ -1,9 +1,9 @@
-import { runtimeConfig, requireEnv } from '../../backend/src/config';
-import { requireMethod } from '../../backend/src/http';
-import { currentUser, query, respond } from '../../backend/src/modules/eventVisibility/runtime';
-import { AccessError } from '../../backend/src/modules/eventVisibility/service';
-import { publishEvent } from '../../backend/src/modules/attendeeVisibility/service';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
+import { runtimeConfig, requireEnv } from '../../backend/src/config.js';
+import { requireMethod } from '../../backend/src/http.js';
+import { currentUser, query, respond } from '../../backend/src/modules/eventVisibility/runtime.js';
+import { AccessError } from '../../backend/src/modules/eventVisibility/service.js';
+import { publishEvent } from '../../backend/src/modules/attendeeVisibility/service.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   if (!requireMethod(request, response, 'POST')) return;

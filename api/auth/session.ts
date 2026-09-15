@@ -1,8 +1,8 @@
-import { runtimeConfig, requireEnv } from '../../backend/src/config';
-import { AccessError } from '../../backend/src/modules/eventVisibility/service';
-import { login, sessionToken, tokenDigest } from '../../backend/src/modules/accessControl/sessions';
-import { respond, databasePool, query } from '../../backend/src/modules/eventVisibility/runtime';
-import type { VercelRequest, VercelResponse } from '../../backend/src/vercel';
+import { runtimeConfig, requireEnv } from '../../backend/src/config.js';
+import { AccessError } from '../../backend/src/modules/eventVisibility/service.js';
+import { login, sessionToken, tokenDigest } from '../../backend/src/modules/accessControl/sessions.js';
+import { respond, databasePool, query } from '../../backend/src/modules/eventVisibility/runtime.js';
+import type { VercelRequest, VercelResponse } from '../../backend/src/vercel.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   await respond(response, async () => {

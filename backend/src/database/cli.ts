@@ -1,4 +1,4 @@
-import { hashPassword } from '../modules/accessControl/passwords';
+import { hashPassword } from '../modules/accessControl/passwords.js';
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';

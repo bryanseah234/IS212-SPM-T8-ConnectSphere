@@ -1,6 +1,6 @@
-import { canActAsRole } from '../accessControl/service';
-import type { AuthenticatedUser } from '../accessControl/types';
-import { AccessError, type Query } from '../eventVisibility/service';
+import { canActAsRole } from '../accessControl/service.js';
+import type { AuthenticatedUser } from '../accessControl/types.js';
+import { AccessError, type Query } from '../eventVisibility/service.js';
 
 function requireAttendee(user: AuthenticatedUser) {
   if (!canActAsRole(user, ['attendee']).allowed) throw new AccessError(403, 'Access denied.');

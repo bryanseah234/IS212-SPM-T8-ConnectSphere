@@ -1,17 +1,17 @@
-import { sessionToken, tokenDigest } from '../accessControl/sessions';
+import { sessionToken, tokenDigest } from '../accessControl/sessions.js';
 import { Pool } from 'pg';
-import { requireEnv } from '../../config';
-import type { VercelRequest, VercelResponse } from '../../vercel';
-import type { AuthenticatedUser } from '../accessControl/types';
-import { sendJson } from '../../http';
-import { AccessError, type Query } from './service';
+import { requireEnv } from '../../config.js';
+import type { VercelRequest, VercelResponse } from '../../vercel.js';
+import type { AuthenticatedUser } from '../accessControl/types.js';
+import { sendJson } from '../../http.js';
+import { AccessError, type Query } from './service.js';
 
 let pool: Pool | undefined;
 export function databasePool() {
   pool ??= new Pool({ connectionString: requireEnv(process.env.DATABASE_POOLER_URL || process.env.DATABASE_URL, 'DATABASE_URL'), max: 3 });
   return pool;
 }
-export const query: Query = (sql, values) => databasePool().query(sql, values);
+export const query: Query = (sql: string, values?: unknown[]) => databasePool().query(sql, values);
 
 export async function currentUser(request: VercelRequest): Promise<AuthenticatedUser> {
   const token = sessionToken(request);
@@ -29,7 +29,8 @@ export async function respond(response: VercelResponse, work: () => Promise<Reco
   response.setHeader('Vary', 'Cookie');
   try { sendJson(response, 200, await work()); }
   catch (error) {
-    sendJson(response, error instanceof AccessError ? error.status : 503,
-      { error: error instanceof AccessError ? error.message : 'Service unavailable. Please try again.' });
+    const accessError = error instanceof AccessError ? error : undefined;
+    sendJson(response, accessError?.status ?? 503,
+      { error: accessError?.message ?? 'Service unavailable. Please try again.' });
   }
 }

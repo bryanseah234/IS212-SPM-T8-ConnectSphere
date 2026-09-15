@@ -1,4 +1,4 @@
-import type { EquipmentSupportRepository } from './repository';
+import type { EquipmentSupportRepository } from './repository.js';
 
 export type EquipmentSupportService = {
   repository: EquipmentSupportRepository;

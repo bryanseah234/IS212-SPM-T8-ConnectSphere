@@ -9,6 +9,10 @@ export type RuntimeConfig = {
   upstashRedisRestUrl?: string;
   upstashRedisRestToken?: string;
   notificationQueueName: string;
+  databaseUrl?: string;
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
+  supabaseServiceRoleKey?: string;
 };
 
 const read = (name: string) => process.env[name]?.trim() || undefined;
@@ -24,6 +28,10 @@ export const runtimeConfig: RuntimeConfig = {
   upstashRedisRestUrl: read('UPSTASH_REDIS_REST_URL'),
   upstashRedisRestToken: read('UPSTASH_REDIS_REST_TOKEN'),
   notificationQueueName: read('UPSTASH_REDIS_QUEUE_NOTIFICATIONS') ?? 'connectsphere:notifications',
+  databaseUrl: read('DATABASE_URL'),
+  supabaseUrl: read('SUPABASE_URL'),
+  supabaseAnonKey: read('SUPABASE_ANON_KEY'),
+  supabaseServiceRoleKey: read('SUPABASE_SERVICE_ROLE_KEY'),
 };
 
 export function requireEnv(value: string | undefined, name: string): string {
@@ -37,11 +45,12 @@ export function requireEnv(value: string | undefined, name: string): string {
 export function getReadiness() {
   return {
     app: true,
-    postgresConfigured: Boolean(read('DATABASE_POOLER_URL') || read('DATABASE_URL')),
+    supabase: Boolean(runtimeConfig.supabaseUrl && runtimeConfig.supabaseAnonKey),
     upstashRedis: Boolean(
       runtimeConfig.upstashRedisRestUrl && runtimeConfig.upstashRedisRestToken,
     ),
     brevo: Boolean(runtimeConfig.brevoApiKey && runtimeConfig.emailFrom),
     cronSecret: Boolean(runtimeConfig.cronSecret),
+    database: Boolean(runtimeConfig.databaseUrl),
   };
 }

@@ -1,5 +1,5 @@
-import type { AuthenticatedUser } from '../accessControl/types';
-import { canActAsRole } from '../accessControl/service';
+import type { AuthenticatedUser } from '../accessControl/types.js';
+import { canActAsRole } from '../accessControl/service.js';
 
 export type Query = <T extends Record<string, unknown> = Record<string, unknown>>(
   sql: string, values?: unknown[],
